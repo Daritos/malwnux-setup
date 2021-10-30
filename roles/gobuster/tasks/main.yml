@@ -19,7 +19,7 @@
 - name: Set permissions for /usr/local/bin/gobuster
   become: true
   file:
-    src: /usr/local/bin/gobuster
+    path: /usr/local/bin/gobuster
     owner: root
     group: root
     mode: '0755'
