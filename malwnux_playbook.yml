@@ -1,0 +1,21 @@
+- name: Update and Upgrade
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+  - name: Update and upgrade apt packages
+    apt:
+      upgrade: yes
+      update_cache: yes
+      cache_valid_time: 86400 #One day
+
+  - name: Remove dependencies that are no longer required
+    apt:
+      autoremove: yes
+
+
+- name: Editos
+  hosts: localhost
+  connection: local
+  become: true
+  roles: ['vscode']
