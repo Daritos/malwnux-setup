@@ -1,8 +1,9 @@
 # malwnux-setup
+
 Playbooks for configuring an analysis linux workstation
 
-
 ## Get started
+
 Install required dependencies
 
 ```bash
