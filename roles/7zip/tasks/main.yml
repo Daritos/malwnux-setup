@@ -1,0 +1,6 @@
+- name: Install 7-zip
+  become: true
+  apt:
+    name:
+    - p7zip-full
+    state: latest

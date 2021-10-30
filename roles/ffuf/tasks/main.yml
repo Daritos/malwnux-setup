@@ -9,18 +9,36 @@
   loop: "{{ json_reponse.json.assets }}"
   when: "'linux_amd64.tar.gz' in item.name"
   unarchive:
-    remote_src: yes
+    remote_src: true
     src: "{{ item.browser_download_url }}"
     dest: "/usr/local/bin/"
-    include: 
-    - "ffup"
     mode: '0755'
+    owner: root
+    group: root
 
-- name: Create a symbolic link for ffup to /usr/bin/ffup
+- name: Remove LICENSE file
   become: true
   file:
-    src: /usr/local/bin/ffup
-    dest: /usr/bin/ffup
+    src: /usr/local/bin/LICENSE
+    state: absent
+
+- name: Remove README.md file
+  become: true
+  file:
+    src: /usr/local/bin/README.md
+    state: absent
+
+- name: Remove CHANGELOG.md file
+  become: true
+  file:
+    src: /usr/local/bin/CHANGELOG.md
+    state: absent
+
+- name: Create a symbolic link for ffuf to /usr/bin/ffuf
+  become: true
+  file:
+    src: /usr/local/bin/ffuf
+    dest: /usr/bin/ffuf
     owner: root
     group: root
     state: link

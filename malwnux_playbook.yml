@@ -16,7 +16,7 @@
 - name: Setup Utilities
   hosts: localhost
   connection: local
-  roles: ['openvpn', 'python3', 'python2', 'docker', 'docker-compose', 'proxychains']
+  roles: ['openvpn', 'python3', 'python2', 'docker', 'docker-compose', 'proxychains', '7zip']
 
 - name: Setup Editors
   hosts: localhost
