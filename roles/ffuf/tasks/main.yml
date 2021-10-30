@@ -19,19 +19,19 @@
 - name: Remove LICENSE file
   become: true
   file:
-    src: /usr/local/bin/LICENSE
+    path: /usr/local/bin/LICENSE
     state: absent
 
 - name: Remove README.md file
   become: true
   file:
-    src: /usr/local/bin/README.md
+    path: /usr/local/bin/README.md
     state: absent
 
 - name: Remove CHANGELOG.md file
   become: true
   file:
-    src: /usr/local/bin/CHANGELOG.md
+    path: /usr/local/bin/CHANGELOG.md
     state: absent
 
 - name: Create a symbolic link for ffuf to /usr/bin/ffuf
