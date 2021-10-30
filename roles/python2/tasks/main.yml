@@ -1,0 +1,21 @@
+- name: Install python2
+  become: true
+  apt:
+    name: python2.7
+    state: present
+
+- name: Install python2.7-dev
+  become: true
+  apt:
+    name: python2.7-dev
+    state: present
+
+- name: Get pip
+  become: true
+  get_url:
+    url: https://bootstrap.pypa.io/get-pip.py
+    dest: /tmp/get-pip.py
+
+- name: Install pip2
+  become: true
+  shell: python2 /tmp/get-pip.py

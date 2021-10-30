@@ -22,4 +22,4 @@
 - name: Setup Utilities
   hosts: localhost
   connection: local
-  roles: ['openvpn', 'docker', 'docker-compose']
+  roles: ['openvpn', 'python3', 'python2', 'docker', 'docker-compose']

@@ -1,0 +1,21 @@
+- name: Install python3
+  become: true
+  apt:
+    name: python3
+    state: present
+
+- name: Install python3-dev
+  become: true
+  apt:
+    name: python3-dev
+    state: present
+
+- name: Get pip
+  become: true
+  get_url:
+    url: https://bootstrap.pypa.io/get-pip.py
+    dest: /tmp/get-pip.py
+
+- name: Install pip3
+  become: true
+  shell: python3 /tmp/get-pip.py
