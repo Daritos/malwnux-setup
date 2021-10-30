@@ -19,9 +19,12 @@
   
 - name: Setup metasploit icon
   become: true
-  file:
+  copy:
     src: 'metasploit.png'
     dest: '/opt/icons/metasploit.png'
+    owner: root
+    group: root
+    mode: '0644'
   
 - name: Setup desktop shortcut folder
   file:
