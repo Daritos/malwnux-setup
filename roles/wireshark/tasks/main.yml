@@ -35,3 +35,18 @@
     path: /usr/bin/dumpcap
     capability: cap_net_raw,cap_net_admin=eip
     state: present
+    mode: 0664
+
+- name: Setup desktop shortcut folder
+  file:
+    path: '~{{ ansible_user_id }}/Desktop/Network tools/'
+    state: directory
+
+- name: Deploy desktop shortcut
+  template:
+    src: wireshark.desktop.j2
+    dest: '~{{ ansible_user_id }}/Desktop/Network tools/wireshark.desktop'
+    mode: 'a+x'
+
+- name: Set the desktop shortcut as trusted
+  shell: 'gio set ~{{ ansible_user_id }}/Desktop/Network tools/wireshark.desktop "metadata::trusted" yes'
