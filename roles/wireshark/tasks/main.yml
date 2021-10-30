@@ -38,14 +38,14 @@
 
 - name: Setup desktop shortcut folder
   file:
-    path: '~{{ ansible_user_id }}/Desktop/Network tools/'
+    path: '~{{ ansible_user_id }}/Desktop/NetworkTools/'
     state: directory
 
 - name: Deploy desktop shortcut
   template:
     src: wireshark.desktop.j2
-    dest: '~{{ ansible_user_id }}/Desktop/Network tools/wireshark.desktop'
+    dest: '~{{ ansible_user_id }}/Desktop/NetworkTools/wireshark.desktop'
     mode: 'a+x'
 
 - name: Set the desktop shortcut as trusted
-  shell: 'gio set "~{{ ansible_user_id }}/Desktop/Network tools/wireshark.desktop" "metadata::trusted" yes'
+  shell: 'gio set ~{{ ansible_user_id }}/Desktop/NetworkTools/wireshark.desktop "metadata::trusted" yes'
