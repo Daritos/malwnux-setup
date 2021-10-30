@@ -31,19 +31,21 @@
 - name: Ubuntu optimization
   hosts: localhost
   connection: local
-  become: true
   tasks:
   - name: Cleanup old kernels
+    become: true
     shell:
       cmd: "dpkg -l linux-{image,headers}-* | awk '/^ii/{print $2}' | egrep '[0-9]+\\.[0-9]+\\.[0-9]+' | grep -v $(uname -r) | xargs apt-get -y purge"
 
   - name: Remove amazon search results from the dash
+    become: true
     apt:
       pkg:
         - ubuntu-web-launchers
       state: absent
 
   - name: Disable error reporting
+    become: true
     apt:
       pkg:
         - whoopsie
@@ -64,5 +66,6 @@
       state: present
 
   - name: Clean up packages
+    become: true
     apt:
       autoremove: true
