@@ -14,8 +14,7 @@
       autoremove: yes
 
 
-- name: Editos
+- name: Setup Editors
   hosts: localhost
   connection: local
-  become: true
   roles: ['vscode']
