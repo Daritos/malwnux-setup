@@ -1,0 +1,7 @@
+- name: Install OpenVPN
+  become: true
+  apt:
+    name:
+    - openvpn
+    - network-manager-openvpn
+    state: latest

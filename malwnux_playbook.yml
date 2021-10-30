@@ -18,3 +18,8 @@
   hosts: localhost
   connection: local
   roles: ['vscode']
+
+- name: Setup Utilities
+  hosts: localhost
+  connection: local
+  roles: ['openvpn']
