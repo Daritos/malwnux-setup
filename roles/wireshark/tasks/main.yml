@@ -1,0 +1,37 @@
+- name: Configure debconf to let non root to capture traffic
+  become: true
+  # Before installing any package, this only sets the preference for the question
+  debconf:
+    name='wireshark-common'
+    question='wireshark-common/install-setuid'
+    vtype='boolean'
+    value='true'
+
+- name: Install Wireshark
+  become: true
+  apt:
+    pkg:
+    - wireshark
+    - tshark
+    state: latest
+
+- name: Add user to wireshark group
+  become: true
+  user:
+    name: "{{ ansible_user_id }}"
+    append: true
+    groups: wireshark
+
+- name: Set cap_net_raw,cap_net_admin=eip on /usr/sbin/tcpdump
+  become: true
+  capabilities:
+    path: /usr/sbin/tcpdump
+    capability: cap_net_raw,cap_net_admin=eip
+    state: present
+
+- name: Set cap_net_raw,cap_net_admin=eip on /usr/sbin/dumpcap
+  become: true
+  capabilities:
+    path: /usr/bin/dumpcap
+    capability: cap_net_raw,cap_net_admin=eip
+    state: present

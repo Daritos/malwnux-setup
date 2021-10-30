@@ -13,11 +13,54 @@
     apt:
       autoremove: yes
 
+- name: Ubuntu optimization
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+  - name: Cleanup old kernels
+    shell:
+      cmd: "dpkg -l linux-{image,headers}-* | awk '/^ii/{print $2}' | egrep '[0-9]+\\.[0-9]+\\.[0-9]+' | grep -v $(uname -r) | xargs apt-get -y purge"
+
+  - name: Remove amazon search results from the dash
+    apt:
+      pkg:
+        - ubuntu-web-launchers
+      state: absent
+
+  - name: Disable error reporting
+    apt:
+      pkg:
+        - whoopsie
+        - apport
+        - apport-gtk
+      state: absent
+
+  - name: Prevent usage statistics to being sent to Canonical
+    dconf:
+      key: "/org/gnome/desktop/privacy/send-software-usage-stats"
+      value: "false"
+      state: present
+
+  - name: Prevent technical problem statistics to being sent to Canonical
+    dconf:
+      key: "/org/gnome/desktop/privacy/report-technical-problem"
+      value: "false"
+      state: present
+
+  - name: Clean up packages
+    apt:
+      autoremove: true
 
 - name: Setup Editors
   hosts: localhost
   connection: local
   roles: ['vscode']
+
+- name: Setup Network tools
+  hosts: localhost
+  connection: local
+  roles: ['wireshark']
 
 - name: Setup Utilities
   hosts: localhost
