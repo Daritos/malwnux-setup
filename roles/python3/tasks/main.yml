@@ -21,6 +21,7 @@
   shell: python3 /tmp/get-pip.py
 
 - name: Install Common Python 3 packages
+  become: true
   pip:
     name:
       - psutil

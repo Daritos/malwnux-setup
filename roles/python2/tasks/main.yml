@@ -19,3 +19,10 @@
 - name: Install pip2
   become: true
   shell: python2 /tmp/get-pip2.py
+
+- name: Install Common Python 2 packages
+  become: true
+  pip:
+    name:
+      - psutil
+    executable: pip2
