@@ -28,6 +28,11 @@
   connection: local
   roles: ['wireshark']
 
+- name: Setup Discovery tools
+  hosts: localhost
+  connection: local
+  roles: ['nmap']
+
 - name: Setup Exploit tools
   hosts: localhost
   connection: local

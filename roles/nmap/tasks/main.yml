@@ -1,0 +1,6 @@
+- name: Install Nmap
+  become: true
+  apt:
+    name:
+    - nmap
+    state: latest
