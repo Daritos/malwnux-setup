@@ -33,6 +33,10 @@ ansible-playbook -i inventory/inventory.ini --ask-become-pass -k malwnux_playboo
 
 * Wireshark
 
+### Exploit tools
+
+* Metasploit
+
 ### Other utilities
 
 * OpenVPN

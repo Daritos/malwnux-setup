@@ -28,6 +28,11 @@
   connection: local
   roles: ['wireshark']
 
+- name: Setup Exploit tools
+  hosts: localhost
+  connection: local
+  roles: ['metasploit']
+
 - name: Ubuntu optimization
   hosts: localhost
   connection: local
