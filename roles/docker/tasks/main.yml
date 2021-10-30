@@ -1,5 +1,6 @@
 ---
 - name: Uninstall old versions
+  become: true
   apt:
     pkg:
     - docker
@@ -10,6 +11,7 @@
     state: absent
 
 - name: Install dependencies
+  become: true
   apt:
     pkg:
     - apt-transport-https
@@ -21,17 +23,20 @@
     update_cache: true
 
 - name: Install Docker offical GPG key
+  become: true
   apt_key:
     url: "https://download.docker.com/linux/ubuntu/gpg"
     state: present
 
 - name: Add docker repository into sources list
+  become: true
   apt_repository:
     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ansible_distribution_release}} stable"
     state: present
     filename: docker
 
 - name: Install docker
+  become: true
   apt:
     pkg:
     - docker-ce

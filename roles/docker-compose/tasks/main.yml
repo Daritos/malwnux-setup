@@ -1,10 +1,12 @@
 - name: Download docker-compose binary
+  become: true
   get_url:
     url: "https://github.com/docker/compose/releases/download/{{docker_compose_version}}/docker-compose-Linux-x86_64"
     dest: /usr/local/bin/docker-compose
     mode: '0755'
 
 - name: Create a symbolic link for docker-compose to /usr/bin/docker-compose
+  become: true
   file:
     src: /usr/local/bin/docker-compose
     dest: /usr/bin/docker-compose
