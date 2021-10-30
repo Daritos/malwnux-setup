@@ -14,8 +14,8 @@
   become: true
   get_url:
     url: https://bootstrap.pypa.io/pip/2.7/get-pip.py
-    dest: /tmp/get-pip.py
+    dest: /tmp/get-pip2.py
 
 - name: Install pip2
   become: true
-  shell: python2 /tmp/get-pip.py
+  shell: python2 /tmp/get-pip2.py
