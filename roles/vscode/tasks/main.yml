@@ -17,7 +17,7 @@
 
 - name: Install VS Code Extensions
   shell: code --install-extension "{{ item }}"
-  become: {{ ansible_user_id }}
+  become: "{{ ansible_user_id }}"
   loop:
     - ms-python.python
     - ms-toolsai.jupyter
