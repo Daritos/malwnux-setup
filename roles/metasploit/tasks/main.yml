@@ -10,3 +10,17 @@
   when: metasploit.changed
   become: true
   command: /tmp/msfinstall
+  
+- name: Setup desktop shortcut folder
+  file:
+    path: '~{{ ansible_user_id }}/Desktop/ExploitTools/'
+    state: directory
+
+- name: Deploy desktop shortcut
+  template:
+    src: metasploit.desktop.j2
+    dest: '~{{ ansible_user_id }}/Desktop/ExploitTools/metasploit.desktop'
+    mode: 'a+x'
+
+- name: Set the desktop shortcut as trusted
+  shell: 'gio set ~{{ ansible_user_id }}/Desktop/ExploitTools/metasploit.desktop "metadata::trusted" yes'
