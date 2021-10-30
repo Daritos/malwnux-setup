@@ -14,3 +14,15 @@
   apt:
     name: code
     state: latest
+
+- name: Install VS Code Extensions
+  shell: code --install-extension "{{ item }}"
+  become: {{ ansible_user_id }}
+  loop:
+    - ms-python.python
+    - ms-toolsai.jupyter
+    - ms-vscode.cpptools
+    - dbaeumer.vscode-eslint
+    - esbenp.prettier-vscode
+    - VisualStudioExptTeam.vscodeintellicode
+    - redhat.vscode-yaml
