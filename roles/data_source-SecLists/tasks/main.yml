@@ -1,5 +1,5 @@
 
-- name: Pull latest OpenCanary version
+- name: Pull latest SecList version
   become: true
   git:
     repo: 'https://github.com/danielmiessler/SecLists.git'
