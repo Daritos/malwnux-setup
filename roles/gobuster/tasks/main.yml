@@ -12,7 +12,8 @@
     remote_src: yes
     src: "{{ item.browser_download_url }}"
     dest: "/usr/local/bin/"
-    include: "gobuster"
+    include: 
+    - "gobuster"
     mode: '0755'
 
 - name: Create a symbolic link for gobuster to /usr/bin/gobuster
