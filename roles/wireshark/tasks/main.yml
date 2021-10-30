@@ -35,7 +35,6 @@
     path: /usr/bin/dumpcap
     capability: cap_net_raw,cap_net_admin=eip
     state: present
-    mode: 0664
 
 - name: Setup desktop shortcut folder
   file:
