@@ -16,3 +16,15 @@ Pivoting
 * The Wayback Machine - https://archive.org/web/
   A historical archive of websites that dates back to the late 90s
 
+
+
+# Usage examples
+
+## Discovery
+
+### Content Discovery
+ffuf -w /opt/SecLists/Discovery/Web-Content/common.txt -u http://MACHINE_IP/FUZZ
+dirb http://MACHINE_IP/ /opt/SecLists/Discovery/Web-Content/common.txt
+gobuster dir --url http://MACHINE_IP/ -w /opt/SecLists/Discovery/Web-Content/common.txt
+
+

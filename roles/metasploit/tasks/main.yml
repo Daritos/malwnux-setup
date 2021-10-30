@@ -11,6 +11,18 @@
   become: true
   command: /tmp/msfinstall
   
+- name: Setup icon folder
+  become: true
+  file:
+    path: '/opt/icons'
+    state: directory
+  
+- name: Setup metasploit icon
+  become: true
+  file:
+    src: 'metasploit.png'
+    dest: '/opt/icons/metasploit.png'
+  
 - name: Setup desktop shortcut folder
   file:
     path: '~{{ ansible_user_id }}/Desktop/ExploitTools/'
