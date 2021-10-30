@@ -58,3 +58,8 @@
     src: vscode.desktop.j2
     dest: '~{{ ansible_user_id }}/Desktop/Editors/vscode.desktop'
     mode: 'a+x'
+
+- name: Set the desktop shortcut as trusted
+  shell: 'gio set ~{{ ansible_user_id }}/Desktop/Editors/vscode.desktop "metadata::trusted" yes'
+
+    
