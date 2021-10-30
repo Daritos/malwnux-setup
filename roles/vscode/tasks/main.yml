@@ -17,7 +17,8 @@
 
 - name: Install VS Code Extensions
   shell: code --install-extension "{{ item }}"
-  become: "{{ ansible_user_id }}"
+  become: true
+  become_user: "{{ ansible_user_id }}"
   loop:
     - ms-python.python
     - ms-toolsai.jupyter
@@ -30,21 +31,24 @@
     - DavidAnson.vscode-markdownlint
 
 - name: Setup VS Code config directory
-  become: "{{ ansible_user_id }}"
+  become: true
+  become_user: "{{ ansible_user_id }}"
   file:
     path: '~{{ ansible_user_id }}/.config/Code'
     state: directory
     mode: 0775
 
 - name: Setup VS Code settings directory
-  become: "{{ ansible_user_id }}"
+  become: true
+  become_user: "{{ ansible_user_id }}"
   file:
     path: '~{{ ansible_user_id }}/.config/Code/User'
     state: directory
     mode: 0775
 
 - name: Push default VS Code settings
-  become: "{{ ansible_user_id }}"
+  become: true
+  become_user: "{{ ansible_user_id }}"
   template:
     src: settings.json.j2
     dest: '~{{ ansible_user_id }}/.config/Code/User/settings.json'
