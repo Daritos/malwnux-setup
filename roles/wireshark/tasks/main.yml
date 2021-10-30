@@ -48,4 +48,4 @@
     mode: 'a+x'
 
 - name: Set the desktop shortcut as trusted
-  shell: 'gio set ~{{ ansible_user_id }}/Desktop/Network tools/wireshark.desktop "metadata::trusted" yes'
+  shell: 'gio set "~{{ ansible_user_id }}/Desktop/Network tools/wireshark.desktop" "metadata::trusted" yes'
