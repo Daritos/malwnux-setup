@@ -1,0 +1,17 @@
+
+- name: Pull latest OpenCanary version
+  become: true
+  git:
+    repo: 'https://github.com/danielmiessler/SecLists.git'
+    dest: "/opt/SecLists"
+    update: true
+    force: true
+
+- name: Set permissions
+  become: true
+  file:
+    path: "/opt/SecLists"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+

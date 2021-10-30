@@ -1,0 +1,25 @@
+- name: Fetch latest gobuster version
+  uri:                                                               
+    url: https://api.github.com/repos/OJ/gobuster/releases/latest
+    return_content: true                                             
+  register: json_reponse                                             
+
+- name: "Installing gobuster {{ json_reponse.json.tag_name }}"
+  become: true
+  loop: "{{ json_reponse.json.assets }}"
+  when: "'gobuster-linux-amd64.7z' in item.name"
+  unarchive:
+    remote_src: yes
+    src: "{{ item.browser_download_url }}"
+    dest: "/usr/local/bin/"
+    include: "gobuster"
+    mode: '0755'
+
+- name: Create a symbolic link for gobuster to /usr/bin/gobuster
+  become: true
+  file:
+    src: /usr/local/bin/gobuster
+    dest: /usr/bin/gobuster
+    owner: root
+    group: root
+    state: link

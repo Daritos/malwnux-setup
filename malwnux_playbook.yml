@@ -16,7 +16,7 @@
 - name: Setup Utilities
   hosts: localhost
   connection: local
-  roles: ['openvpn', 'python3', 'python2', 'docker', 'docker-compose']
+  roles: ['openvpn', 'python3', 'python2', 'docker', 'docker-compose', 'proxychains']
 
 - name: Setup Editors
   hosts: localhost
@@ -31,12 +31,17 @@
 - name: Setup Discovery tools
   hosts: localhost
   connection: local
-  roles: ['nmap']
+  roles: ['nmap', 'ffuf', 'dirb', 'gobuster']
 
 - name: Setup Exploit tools
   hosts: localhost
   connection: local
   roles: ['metasploit']
+
+- name: Setup Data Sources
+  hosts: localhost
+  connection: local
+  roles: ['data_source-SecLists']
 
 - name: Ubuntu optimization
   hosts: localhost

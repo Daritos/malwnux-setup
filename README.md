@@ -36,10 +36,17 @@ ansible-playbook -i inventory/inventory.ini --ask-become-pass -k malwnux_playboo
 ### Discover tools
 
 * Nmap
+* ffup (Fuzz Faster U Fool) - A fast web fuzzer
+* dirb - A Web Content Scanner. It looks for existing (and/or hidden) Web Objects
+* gobuster - Gobuster is a tool used to brute-force URIs (directories and files) in web sites, DNS subdomain, (with wildcard support), Virtual Host names on target web servers and Open Amazon S3 buckets
 
 ### Exploit tools
 
 * Metasploit
+
+### Data Sources
+
+* https://github.com/danielmiessler/SecLists
 
 ### Other utilities
 
@@ -48,3 +55,4 @@ ansible-playbook -i inventory/inventory.ini --ask-become-pass -k malwnux_playboo
 * Python 2.7
 * Docker
 * Docker Compose
+* proxychains

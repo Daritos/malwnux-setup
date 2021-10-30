@@ -1,0 +1,5 @@
+- name: Install proxychains
+  become: true
+  apt:
+    name: proxychains
+    state: present

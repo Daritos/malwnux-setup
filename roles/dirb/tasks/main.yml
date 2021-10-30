@@ -1,0 +1,6 @@
+- name: Install DIRB
+  become: true
+  apt:
+    name:
+    - dirb
+    state: latest

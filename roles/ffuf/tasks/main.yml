@@ -1,0 +1,25 @@
+- name: Fetch latest ffuf version
+  uri:                                                               
+    url: https://api.github.com/repos/ffuf/ffuf/releases/latest
+    return_content: true                                             
+  register: json_reponse                                             
+
+- name: "Installing ffuf {{ json_reponse.json.tag_name }}"
+  become: true
+  loop: "{{ json_reponse.json.assets }}"
+  when: "'linux_amd64.tar.gz' in item.name"
+  unarchive:
+    remote_src: yes
+    src: "{{ item.browser_download_url }}"
+    dest: "/usr/local/bin/"
+    include: "ffup"
+    mode: '0755'
+
+- name: Create a symbolic link for ffup to /usr/bin/ffup
+  become: true
+  file:
+    src: /usr/local/bin/ffup
+    dest: /usr/bin/ffup
+    owner: root
+    group: root
+    state: link
