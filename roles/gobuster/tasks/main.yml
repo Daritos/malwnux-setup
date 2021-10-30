@@ -14,7 +14,7 @@
 
 - name: Install gobuster in /usr/local/bin/gobuster
   become: true
-  shell: 7z e /tmp/gobuster-linux-amd64.7z -o /usr/local/bin/ gobuster
+  shell: 7z e /tmp/gobuster-linux-amd64.7z -o/usr/local/bin/ gobuster -r
 
 - name: Set permissions for /usr/local/bin/gobuster
   become: true
