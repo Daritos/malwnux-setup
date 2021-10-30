@@ -30,7 +30,7 @@
     - DavidAnson.vscode-markdownlint
 
 - name: Setup VS Code config directory
-  become_user: "{{ ansible_user_id }}"
+  become: "{{ ansible_user_id }}"
   file:
     path: '~{{ ansible_user_id }}/.config/Code'
     state: directory
