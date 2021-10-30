@@ -50,7 +50,7 @@
 
 - name: Setup desktop shortcut folder
   file:
-    path: ''~{{ ansible_user_id }}/Desktop/Editors/'
+    path: '~{{ ansible_user_id }}/Desktop/Editors/'
     state: directory
 
 - name: Deploy desktop shortcut
