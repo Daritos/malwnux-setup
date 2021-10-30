@@ -5,3 +5,9 @@
     - openvpn
     - network-manager-openvpn
     state: latest
+
+- name: Restart network manager
+  service:
+    name: network-manager
+    state: restarted
+  
