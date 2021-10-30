@@ -47,3 +47,14 @@
     src: settings.json.j2
     dest: '~{{ ansible_user_id }}/.config/Code/User/settings.json'
     mode: 0664
+
+- name: Setup desktop shortcut folder
+  file:
+    path: ''~{{ ansible_user_id }}/Desktop/Editors/'
+    state: directory
+
+- name: Deploy desktop shortcut
+  template:
+    src: vscode.desktop.j2
+    dest: '~{{ ansible_user_id }}/Desktop/Editors/vscode.desktop'
+    mode: 'a+x'

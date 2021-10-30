@@ -1,0 +1,38 @@
+[Desktop Entry]
+StartupNotify=false
+StartupWMClass=Code
+
+# "Application", "Link" or "Directory"
+Type=Application
+
+# The version of the Desktop Entry Specification
+Version=1.0
+
+# The name of the application
+Name=Visual Studio Code
+GenericName=Text Editor
+
+# A comment which will be used as a tooltip
+Comment=Code Editing. Redefined.
+
+# The path to the folder in which the executable is run
+Path=/usr/bin/code
+
+# The executable of the application, possibly with arguments
+Exec=/usr/share/code/code --unity-launch %F
+
+# The icon to display
+Icon=com.visualstudio.code
+
+# Describes whether this application needs to be run in a terminal or not
+Terminal=false
+
+# Describes the categories in which this entry should be shown
+Categories=Utility;TextEditor;Development;IDE;
+MimeType=text/plain;inode/directory;application/x-code-workspace;
+Actions=new-empty-window;
+Keywords=vscode;
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Exec=/usr/share/code/code --new-window %F
