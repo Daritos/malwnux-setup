@@ -7,6 +7,7 @@
     state: latest
 
 - name: Restart network manager
+  become: true
   service:
     name: network-manager
     state: restarted
