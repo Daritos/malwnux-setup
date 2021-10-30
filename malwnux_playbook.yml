@@ -13,6 +13,21 @@
     apt:
       autoremove: yes
 
+- name: Setup Utilities
+  hosts: localhost
+  connection: local
+  roles: ['openvpn', 'python3', 'python2', 'docker', 'docker-compose']
+
+- name: Setup Editors
+  hosts: localhost
+  connection: local
+  roles: ['vscode']
+
+- name: Setup Network tools
+  hosts: localhost
+  connection: local
+  roles: ['wireshark']
+
 - name: Ubuntu optimization
   hosts: localhost
   connection: local
@@ -51,18 +66,3 @@
   - name: Clean up packages
     apt:
       autoremove: true
-
-- name: Setup Editors
-  hosts: localhost
-  connection: local
-  roles: ['vscode']
-
-- name: Setup Network tools
-  hosts: localhost
-  connection: local
-  roles: ['wireshark']
-
-- name: Setup Utilities
-  hosts: localhost
-  connection: local
-  roles: ['openvpn', 'python3', 'python2', 'docker', 'docker-compose']
