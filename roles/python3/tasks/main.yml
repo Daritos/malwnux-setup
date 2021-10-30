@@ -19,3 +19,9 @@
 - name: Install pip3
   become: true
   shell: python3 /tmp/get-pip.py
+
+- name: Install Common Python 3 packages
+  pip:
+    name:
+      - psutil
+    executable: pip3
