@@ -25,4 +25,5 @@
   pip:
     name:
       - psutil
+      - jmespath 
     executable: pip2
