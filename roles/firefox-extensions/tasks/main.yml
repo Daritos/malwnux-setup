@@ -4,5 +4,4 @@
     dest: /tmp/foxyproxy_basic.xpi
 
 - name: Install Extension
-  become: true
   shell: firefox -silent -install-global-extension /tmp/foxyproxy_basic.xpi
