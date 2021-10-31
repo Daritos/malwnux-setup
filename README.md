@@ -21,7 +21,7 @@ cd malwnux-setup
 Install required ansible galaxies
 
 ```bash
-ansible-galaxy install -r requirements.yml
+ansible-galaxy install -r requirements.yml --force
 ```
 
 Now run the playbook from the repository
