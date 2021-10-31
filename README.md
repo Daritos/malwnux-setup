@@ -17,6 +17,12 @@ git clone https://github.com/Daritos/malwnux-setup.git
 cd malwnux-setup
 ```
 
+Install required ansible galaxies
+
+```bash
+ansible-galaxy install -r requirements.yml
+```
+
 Now run the playbook from the repository
 
 ```bash

@@ -31,7 +31,7 @@
 - name: Setup Discovery tools
   hosts: localhost
   connection: local
-  roles: ['nmap', 'ffuf', 'dirb', 'gobuster']
+  roles: ['nmap', 'ffuf', 'dirb', 'gobuster', 'ansible-role-burpsuite']
 
 - name: Setup Exploit tools
   hosts: localhost
