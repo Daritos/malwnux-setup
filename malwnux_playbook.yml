@@ -32,8 +32,9 @@
   hosts: localhost
   connection: local
   roles: ['nmap', 'ffuf', 'dirb', 'gobuster', 'ansible-role-burpsuite']
-  vars:
-  - burpsuite_user: "{{ ansible_user }}"
+  pre_tasks:
+   - set_fact:
+       burpsuite_user: "{{ ansible_user }}"
 
 - name: Setup Exploit tools
   hosts: localhost
