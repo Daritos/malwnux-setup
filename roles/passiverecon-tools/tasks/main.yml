@@ -1,0 +1,7 @@
+- name: Install Passive Recon tools
+  become: true
+  apt:
+    name:
+    - whois
+    - dnsutils
+    state: latest

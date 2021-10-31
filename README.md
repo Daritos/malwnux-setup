@@ -52,6 +52,12 @@ ansible-playbook -i inventory/inventory.ini --ask-become-pass -k malwnux_playboo
 
 * Metasploit
 
+### Passive Reconnaissance tools
+
+* whois
+* dig
+* nslookup
+
 ### Data Sources
 
 * https://github.com/danielmiessler/SecLists
