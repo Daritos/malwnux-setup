@@ -18,7 +18,7 @@
   connection: local
   roles: ['openvpn', 'python3', 'python2', 'docker', 'docker-compose', 'proxychains', '7zip']
   vars:
-  - burpsuite_user: {{ ansible_user }}
+  - burpsuite_user: "{{ ansible_user }}"
 
 - name: Setup Editors
   hosts: localhost
