@@ -1,0 +1,6 @@
+- name: Install Active Recon tools
+  become: true
+  apt:
+    name:
+    - traceroute
+    state: latest
