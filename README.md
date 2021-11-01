@@ -58,6 +58,12 @@ ansible-playbook -i inventory/inventory.ini --ask-become-pass -k malwnux_playboo
 * dig
 * nslookup
 
+### Active Reconnaissance tools
+
+* ping
+* traceroute
+* nc
+
 ### Data Sources
 
 * https://github.com/danielmiessler/SecLists
@@ -74,3 +80,4 @@ ansible-playbook -i inventory/inventory.ini --ask-become-pass -k malwnux_playboo
 #### Firefox Extensions
 
 * FoxyProxy Basic
+* User-Agent Switcher and Manager
