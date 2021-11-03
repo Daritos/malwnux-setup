@@ -44,7 +44,7 @@
 - name: Setup Data Sources
   hosts: localhost
   connection: local
-  roles: ['data_source-SecLists']
+  roles: ['data_source-SecLists', 'data_source-reverse-shells']
 
 - name: Ubuntu optimization
   hosts: localhost
