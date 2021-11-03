@@ -1,0 +1,17 @@
+
+- name: Pull latest php-reverse-shell version
+  become: true
+  git:
+    repo: 'https://github.com/pentestmonkey/php-reverse-shell.git'
+    dest: "/opt/reverse-shells/php-reverse-shell"
+    update: true
+    force: true
+
+- name: Set permissions
+  become: true
+  file:
+    path: "/opt/reverse-shells"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+

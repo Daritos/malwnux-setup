@@ -3,4 +3,5 @@
   apt:
     name:
     - traceroute
+    - masscan
     state: latest

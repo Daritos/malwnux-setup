@@ -63,10 +63,12 @@ ansible-playbook -i inventory/inventory.ini --ask-become-pass -k malwnux_playboo
 * ping
 * traceroute
 * nc
+* masscan
 
 ### Data Sources
 
 * https://github.com/danielmiessler/SecLists
+* https://github.com/pentestmonkey/php-reverse-shell
 
 ### Other utilities
 
