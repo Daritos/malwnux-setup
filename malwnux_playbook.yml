@@ -21,7 +21,7 @@
 - name: Setup Editors
   hosts: localhost
   connection: local
-  roles: ['vscode', 'cherrytree']
+  roles: ['vscode', 'editor_cherrytree']
 
 - name: Setup Network tools
   hosts: localhost
