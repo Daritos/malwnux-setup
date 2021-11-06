@@ -21,7 +21,7 @@
 - name: Setup Editors
   hosts: localhost
   connection: local
-  roles: ['vscode']
+  roles: ['vscode', 'cherrytree']
 
 - name: Setup Network tools
   hosts: localhost
@@ -39,7 +39,7 @@
 - name: Setup Exploit tools
   hosts: localhost
   connection: local
-  roles: ['metasploit']
+  roles: ['metasploit', 'empiresuite']
 
 - name: Setup Data Sources
   hosts: localhost

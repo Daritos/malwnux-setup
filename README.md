@@ -35,6 +35,7 @@ ansible-playbook -i inventory/inventory.ini --ask-become-pass -k malwnux_playboo
 ### Editors
 
 * Visual Studio Code
+* Cherrytree
 
 ### Network tools
 
@@ -51,6 +52,10 @@ ansible-playbook -i inventory/inventory.ini --ask-become-pass -k malwnux_playboo
 ### Exploit tools
 
 * Metasploit
+* Empire-Suite (post-exploitation framework)
+  * Empire
+  * Starkiller
+  * DeathStar
 
 ### Passive Reconnaissance tools
 

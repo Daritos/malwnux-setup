@@ -1,0 +1,89 @@
+- name: Pull latest Empire version
+  become: true
+  git:
+    repo: 'https://github.com/BC-SECURITY/Empire'
+    dest: "/opt/Empire"
+    update: true
+    force: true
+  register: empire
+
+- name: Set permissions
+  become: true
+  file:
+    path: "/opt/Empire"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+
+#- name: Install Empire
+#  when: empire.changed
+#  expect:
+#   timeout: 300
+#   command: ./setup/install.sh
+#   chdir: '/opt/Empire'
+#   responses:
+#     'password' : ''
+#   echo: true
+#  become: true
+
+- name: Setup desktop shortcut folder
+  file:
+    path: '~{{ ansible_user_id }}/Desktop/ExploitTools/'
+    state: directory
+
+- name: Deploy desktop shortcut (Empire-Server)
+  template:
+    src: Empire-Server.desktop.j2
+    dest: '~{{ ansible_user_id }}/Desktop/ExploitTools/Empire-Server.desktop'
+    mode: 'a+x'
+
+- name: Deploy desktop shortcut (Empire-Client)
+  template:
+    src: Empire-Client.desktop.j2
+    dest: '~{{ ansible_user_id }}/Desktop/ExploitTools/Empire-Client.desktop'
+    mode: 'a+x'
+  
+- name: Fetch latest Starkiller version
+  uri:                                                               
+    url: https://api.github.com/repos/BC-SECURITY/Starkiller/releases/latest
+    return_content: true                                             
+  register: json_reponse
+
+- name: Create Starkiller directory
+  become: true
+  file:
+    path: "/opt/Starkiller"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+
+- name: "Download Starkiller {{ json_reponse.json.tag_name }}"
+  become: true
+  loop: "{{ json_reponse.json.assets }}"
+  when: "'AppImage' in item.name"
+  get_url:
+    url: "{{ item.browser_download_url }}"
+    dest: "/opt/Starkiller/starkiller"
+    mode: '777'
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+
+- name: Install Starkiller
+  file: 
+   src: '/opt/Starkiller/starkiller'
+   dest: /usr/bin/starkiller
+   state: link
+  become: true
+
+- name: Deploy desktop shortcut (Starkiller)
+  template:
+    src: Starkiller.desktop.j2
+    dest: '~{{ ansible_user_id }}/Desktop/ExploitTools/Starkiller.desktop'
+    mode: 'a+x'
+
+- name: Install Deathstart
+  become: true
+  pip:
+    name:
+      - deathstar-empire
+    executable: pip3

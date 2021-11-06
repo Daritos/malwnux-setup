@@ -37,4 +37,22 @@ ffuf -w /opt/SecLists/Discovery/Web-Content/common.txt -u http://MACHINE_IP/FUZZ
 dirb http://MACHINE_IP/ /opt/SecLists/Discovery/Web-Content/common.txt
 gobuster dir --url http://MACHINE_IP/ -w /opt/SecLists/Discovery/Web-Content/common.txt
 
+## Privilege Escalation
 
+### Privilege Escalation: SUID
+List files that have SUID or SGID bits set.
+find / -type f -perm -04000 -ls 2>/dev/null
+
+## Empire-Suite
+
+# Empire
+
+* https://bc-security.gitbook.io/empire-wiki/
+
+# Starkiller
+
+* https://github.com/BC-SECURITY/Starkiller
+
+# DeathStar
+
+* https://github.com/byt3bl33d3r/DeathStar#usage
