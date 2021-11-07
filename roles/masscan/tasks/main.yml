@@ -28,11 +28,11 @@
     group: "{{ ansible_user_id }}"
     mode: 0755
 
-- name: Install Masscan
-  become: true
-  file:
-    src: /opt/masscan/bin/masscan
-    dest: /usr/bin/masscan
-    owner: root
-    group: root
-    state: link
+#- name: Install Masscan
+#  become: true
+#  file:
+#    src: /opt/masscan/bin/masscan
+#    dest: /usr/bin/masscan
+#    owner: root
+#    group: root
+#    state: link
