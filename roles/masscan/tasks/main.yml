@@ -29,9 +29,8 @@
     mode: 0755
 
 - name: Install Masscan
-  when: masscan.changed
-  file: 
-   src: '/opt/masscan/bin/masscan'
-   dest: /usr/bin/masscan
-   state: link
   become: true
+  file: 
+   src: '/usr/bin/masscan'
+   dest: '/opt/masscan/bin/masscan'
+   state: link
