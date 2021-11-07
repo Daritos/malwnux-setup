@@ -85,5 +85,5 @@
   become: true
   pip:
     name:
-      - deathstar-empire
+      - git+https://github.com/byt3bl33d3r/DeathStar.git
     executable: pip3
