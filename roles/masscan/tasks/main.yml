@@ -1,0 +1,37 @@
+- name: Install Masscan build dependencies
+  become: true
+  apt:
+    name:
+    - make
+    - gcc
+    state: present
+
+- name: Pull latest Masscan version
+  become: true
+  git:
+    repo: 'https://github.com/robertdavidgraham/masscan'
+    dest: "/opt/masscan"
+    update: true
+    force: true
+  register: masscan
+
+- name: Build Masscan
+  when: masscan.changed
+  become: true
+  shell: chdir=/opt/masscan "make"
+
+- name: Set permissions
+  become: true
+  file:
+    path: "/opt/masscan/bin/masscan"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+    mode: 0755
+
+- name: Install Masscan
+  when: masscan.changed
+  file: 
+   src: '/opt/masscan/bin/masscan'
+   dest: /usr/bin/masscan
+   state: link
+  become: true
