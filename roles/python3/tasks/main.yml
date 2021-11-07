@@ -1,4 +1,4 @@
-- name: Setup Cherrytree repository
+- name: Setup Deadsnakes repository
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'bionic'
   become: true
   apt_repository:

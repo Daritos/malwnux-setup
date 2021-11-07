@@ -30,7 +30,9 @@
 
 - name: Install Masscan
   become: true
-  file: 
-   src: '/usr/bin/masscan'
-   dest: '/opt/masscan/bin/masscan'
-   state: link
+  file:
+    src: /opt/masscan/bin/masscan
+    dest: /usr/bin/masscan
+    owner: root
+    group: root
+    state: link
