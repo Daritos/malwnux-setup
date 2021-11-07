@@ -15,16 +15,28 @@
     owner: "{{ ansible_user_id }}"
     group: "{{ ansible_user_id }}"
 
-#- name: Install Empire
-#  when: empire.changed
-#  expect:
-#   timeout: 300
-#   command: ./setup/install.sh
-#   chdir: '/opt/Empire'
-#   responses:
-#     'password' : ''
-#   echo: true
-#  become: true
+- name: Upgrade python3 package pexpect
+  become: true
+  pip:
+    name:
+      - pexpect
+    executable: pip3
+    state: latest
+    extra_args: --ignore-installed
+
+- name: Install Empire
+  when: empire.changed
+  expect:
+   timeout: 300
+   command: ./setup/install.sh
+   chdir: '/opt/Empire'
+   responses:
+     '.*install xar and bomutils.*' : 'y'
+     '.*install OpenJDK.*' : 'y'
+     '.*install dotnet.*' : 'y'
+     '.*install Nim and MinGW.*' : 'y'
+   echo: true
+  become: true
 
 - name: Setup desktop shortcut folder
   file:
