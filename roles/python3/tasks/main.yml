@@ -1,5 +1,5 @@
 - name: Setup Cherrytree repository
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == "18.04"
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'bionic'
   become: true
   apt_repository:
     repo: 'ppa:deadsnakes/ppa'
