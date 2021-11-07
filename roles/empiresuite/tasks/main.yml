@@ -99,3 +99,9 @@
     name:
       - git+https://github.com/byt3bl33d3r/DeathStar.git
     executable: pip3
+
+- name: Deploy desktop shortcut (Deathstar)
+  template:
+    src: Deathstar.desktop.j2
+    dest: '~{{ ansible_user_id }}/Desktop/ExploitTools/Deathstar.desktop'
+    mode: 'a+x'
