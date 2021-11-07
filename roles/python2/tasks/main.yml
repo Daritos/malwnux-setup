@@ -18,7 +18,7 @@
 
 - name: Install pip2
   become: true
-  shell: python2 /tmp/get-pip2.py
+  shell: python2.7 /tmp/get-pip2.py
 
 - name: Install Common Python 2 packages
   become: true
