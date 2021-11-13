@@ -1,0 +1,51 @@
+- name: Setup Windows Binaries folder
+  become: true
+  file:
+    path: '/opt/win_bins'
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+
+- name: Setup Windows Binaries folder
+  become: true
+  file:
+    path: '/opt/win_bins/32'
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+
+- name: Setup Windows Binaries folder
+  become: true
+  file:
+    path: '/opt/win_bins/64'
+    state: directory
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+
+- name: Download latest PuTTY portable 32-bit
+  get_url:
+    url: https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe
+    dest: /opt/win_bins/32/putty.exe
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+
+- name: Download latest PuTTY CLI portable 32-bit
+  get_url:
+    url: https://the.earth.li/~sgtatham/putty/latest/w32/plink.exe
+    dest: /opt/win_bins/32/plink.exe
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+
+- name: Download latest PuTTY portable 64-bit
+  get_url:
+    url: https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe
+    dest: /opt/win_bins/64/putty.exe
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
+
+- name: Download latest PuTTY CLI portable 64-bit
+  get_url:
+    url: https://the.earth.li/~sgtatham/putty/latest/w64/plink.exe
+    dest: /opt/win_bins/64plink.exe
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
