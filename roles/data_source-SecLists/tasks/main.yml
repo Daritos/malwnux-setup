@@ -12,6 +12,7 @@
   file:
     path: "/opt/SecLists"
     state: directory
+    recurse: true
     owner: "{{ ansible_user_id }}"
     group: "{{ ansible_user_id }}"
 
