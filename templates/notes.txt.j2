@@ -68,6 +68,23 @@ find / -type f -perm -04000 -ls 2>/dev/null
 
 * https://github.com/byt3bl33d3r/DeathStar#usage
 
+## Password Cracking
+
+### Hydra
+
+Target an SSH service
+
+```bash
+hydra -l <username> -P <full path to pass> <IP> -t 4 ssh
+```
+
+Post against a web form
+
+```bash
+hydra -l <username> -P <wordlist> <DOMAIN/IP> http-post-form "/:username=^USER^&password=^PASS^:F=incorrect" -V
+```
+
+
 ## More notes
 
 ### Convert OpenSSH keys into PuTTY style keys

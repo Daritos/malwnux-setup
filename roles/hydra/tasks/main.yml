@@ -14,9 +14,8 @@
     - libgpg-error-dev 
     #- libgcrypt11-dev 
     - libgcrypt20-dev
+    - libcanberra-gtk-module
     state: latest
-
-
 
 - name: Clone thc-hydra into a temp build directory
   git:
