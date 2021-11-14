@@ -1,0 +1,39 @@
+- name: Clone thc-hydra into a temp build directory
+  git:
+    accept_hostkey: yes
+    clone: yes
+    depth: 1
+    dest: /tmp/hydra
+    force: yes
+    repo: https://github.com/vanhauser-thc/thc-hydra.git
+    version: v9.2
+
+- name: Configure thc-hydra build
+  shell: 'bash -lc "/tmp/hydra/configure"'
+  args:
+    chdir: /tmp/hydra
+
+- name: Build thc-hydra
+  make:
+    chdir: /tmp/hydra
+
+- name: Deploy/install thc-hydra
+  make:
+    chdir: /tmp/hydra
+    target: install
+
+- name: Remove thc-hydra temp build directory
+  file:
+    path: /tmp/hydra
+    state: absent
+
+- name: Setup desktop shortcut folder
+  file:
+    path: '~{{ ansible_user_id }}/Desktop/PasswordCracking/'
+    state: directory
+
+- name: Deploy desktop shortcut (Hydra)
+  template:
+    src: hydra.desktop.j2
+    dest: '~{{ ansible_user_id }}/Desktop/PasswordCracking/Hydra.desktop'
+    mode: 'a+x'

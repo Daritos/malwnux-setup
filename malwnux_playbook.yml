@@ -41,6 +41,11 @@
   connection: local
   roles: ['metasploit', 'empiresuite']
 
+- name: Setup Password Crackering tools
+  hosts: localhost
+  connection: local
+  roles: ['hydra']
+
 - name: Setup Data Sources
   hosts: localhost
   connection: local

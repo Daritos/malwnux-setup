@@ -71,6 +71,10 @@ ansible-playbook -i inventory/inventory.ini --ask-become-pass -k malwnux_playboo
 * nc
 * masscan
 
+### Password Cracking tools
+
+* hydra
+
 ### Data Sources
 
 * https://github.com/danielmiessler/SecLists
