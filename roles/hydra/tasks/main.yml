@@ -18,6 +18,7 @@
     chdir: /tmp/hydra
 
 - name: Deploy/install thc-hydra
+  become: true
   make:
     chdir: /tmp/hydra
     target: install
