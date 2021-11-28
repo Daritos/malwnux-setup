@@ -36,6 +36,11 @@
    - set_fact:
        burpsuite_user: "{{ ansible_user }}"
 
+- name: Setup Service Enumeration tools
+  hosts: localhost
+  connection: local
+  roles: ['enum4linux-ng']
+
 - name: Setup Exploit tools
   hosts: localhost
   connection: local

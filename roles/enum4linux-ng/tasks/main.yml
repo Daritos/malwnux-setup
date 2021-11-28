@@ -1,0 +1,32 @@
+- name: Install smbclient
+  become: true
+  apt:
+    name: smbclient
+    state: present
+
+- name: Install Python 3 package dependencies
+  become: true
+  pip:
+    name:
+      - ldap3
+      - pyyaml
+      - impacket
+    executable: pip3
+
+- name: Pull latest enum4linux-ng version
+  become: true
+  pip:
+    name:
+      - git+https://github.com/cddmp/enum4linux-ng
+    executable: pip3
+
+- name: Setup desktop shortcut folder
+  file:
+    path: '~{{ ansible_user_id }}/Desktop/ServiceEnumeration/'
+    state: directory
+
+- name: Deploy desktop shortcut (enum4linux-ng)
+  template:
+    src: enum4linux-ng.desktop.j2
+    dest: '~{{ ansible_user_id }}/Desktop/ServiceEnumeration/enum4linux-ng.desktop'
+    mode: 'a+x'
