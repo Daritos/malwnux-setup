@@ -71,6 +71,7 @@ ansible-playbook -i inventory/inventory.ini --ask-become-pass -k malwnux_playboo
 * nc
 * masscan
 * dnsrecon
+* sublist3r
 
 ### Service Enumeration tools
 

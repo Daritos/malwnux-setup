@@ -12,3 +12,10 @@
     name:
       - git+https://github.com/darkoperator/dnsrecon.git
     executable: pip3
+
+- name: Pull latest Sublist3r version
+  become: true
+  pip:
+    name:
+      - git+https://github.com/aboul3la/Sublist3r.git
+    executable: pip3
