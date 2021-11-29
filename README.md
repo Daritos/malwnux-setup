@@ -70,6 +70,11 @@ ansible-playbook -i inventory/inventory.ini --ask-become-pass -k malwnux_playboo
 * traceroute
 * nc
 * masscan
+* dnsrecon
+
+### Service Enumeration tools
+
+* enum4linux-ng
 
 ### Password Cracking tools
 

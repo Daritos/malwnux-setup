@@ -5,3 +5,10 @@
     - traceroute
     - masscan
     state: latest
+
+- name: Pull latest DNSRecon version
+  become: true
+  pip:
+    name:
+      - git+https://github.com/darkoperator/dnsrecon.git
+    executable: pip3

