@@ -8,6 +8,7 @@
 
 - name: Restart network manager
   become: true
+  when: ansible_distribution == 'Ubuntu' and ( ansible_distribution_release == 'bionic' or ansible_distribution_release == 'focal')
   service:
     name: network-manager
     state: restarted
