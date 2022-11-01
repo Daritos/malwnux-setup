@@ -7,7 +7,7 @@
 - name: Creates CyberChef directory
   become: true
   file:
-    path: /opt/cyberchef
+    path: /home/{{ ansible_user }}/cyberchef
     state: directory
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
@@ -19,14 +19,14 @@
   unarchive:
     remote_src: true
     src: "{{ item.browser_download_url }}"
-    dest: "/opt/cyberchef/"
+    dest: "/home/{{ ansible_user }}/cyberchef/"
     mode: '0755'
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"                     
 
 - name: Creates Desktop shortcut
   file:
-    src: "/opt/cyberchef/CyberChef_{{ json_reponse.json.tag_name }}.html"
+    src: "/home/{{ ansible_user }}/cyberchef/CyberChef_{{ json_reponse.json.tag_name }}.html"
     dest: "/home/{{ ansible_user }}/Desktop/CyberChef"
     state: link
     owner: "{{ ansible_user }}"
