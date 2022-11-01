@@ -9,8 +9,8 @@
   file:
     path: /opt/cyberchef
     state: directory
-    owner: {{ ansible_user }}
-    group: {{ ansible_user }}
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
 
 - name: "Download CyberChef {{ json_reponse.json.tag_name }}"
   become: true
@@ -21,13 +21,13 @@
     src: "{{ item.browser_download_url }}"
     dest: "/opt/cyberchef/"
     mode: '0755'
-    owner: {{ ansible_user }}
-    group: {{ ansible_user }}                         
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"                     
 
 - name: Creates Desktop shortcut
   file:
     src: "/opt/cyberchef/CyberChef_{{ json_reponse.json.tag_name }}.html"
     dest: "/home/{{ ansible_user }}/Desktop/CyberChef"
     state: link
-    owner: {{ ansible_user }}
-    group: {{ ansible_user }}
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
