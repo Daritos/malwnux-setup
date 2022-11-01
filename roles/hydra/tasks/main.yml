@@ -6,7 +6,8 @@
     - libidn11-dev 
     - libpcre3-dev 
     - libgtk2.0-dev 
-    - libmysqlclient-dev 
+    - libmysqlclient-dev
+    - default-libmysqlclient-dev
     - libpq-dev 
     - libsvn-dev 
     - firebird-dev 
@@ -15,6 +16,11 @@
     #- libgcrypt11-dev 
     - libgcrypt20-dev
     - libcanberra-gtk-module
+    - libgcrypt-dev
+    - libssl-dev
+    - make
+    - curl
+    - gcc
     state: latest
 
 - name: Clone thc-hydra into a temp build directory
