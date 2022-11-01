@@ -24,6 +24,7 @@
 
 - name: Set cap_net_raw,cap_net_admin=eip on /usr/sbin/tcpdump
   become: true
+  ignore_errors: true
   capabilities:
     path: /usr/sbin/tcpdump
     capability: cap_net_raw,cap_net_admin=eip
