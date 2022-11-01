@@ -94,6 +94,7 @@ ansible-playbook -i inventory/inventory.ini --ask-become-pass -k malwnux_playboo
 * Docker
 * Docker Compose
 * proxychains
+* CyberChef
 
 #### Firefox Extensions
 

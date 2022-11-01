@@ -1,0 +1,33 @@
+- name: Fetch latest CyberChef version
+  uri:                                                               
+    url: https://api.github.com/repos/gchq/CyberChef/releases/latest
+    return_content: true                                             
+  register: json_reponse                              
+
+- name: Creates CyberChef directory
+  become: true
+  file:
+    path: /opt/cyberchef
+    state: directory
+    owner: {{ ansible_user }}
+    group: {{ ansible_user }}
+
+- name: "Download CyberChef {{ json_reponse.json.tag_name }}"
+  become: true
+  loop: "{{ json_reponse.json.assets }}"
+  when: "'CyberChef' in item.name"
+  unarchive:
+    remote_src: true
+    src: "{{ item.browser_download_url }}"
+    dest: "/opt/cyberchef/"
+    mode: '0755'
+    owner: {{ ansible_user }}
+    group: {{ ansible_user }}                         
+
+- name: Creates Desktop shortcut
+  file:
+    src: "/opt/cyberchef/CyberChef_{{ json_reponse.json.tag_name }}.html"
+    dest: "/home/{{ ansible_user }}/Desktop/CyberChef"
+    state: link
+    owner: {{ ansible_user }}
+    group: {{ ansible_user }}
