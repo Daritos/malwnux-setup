@@ -1,57 +1,64 @@
-- name: Install Hydra dependencies
+# - name: Install Hydra dependencies
+#   become: true
+#   apt:
+#     name:
+#     - libssh-dev 
+#     - libidn11-dev 
+#     - libpcre3-dev 
+#     - libgtk2.0-dev 
+#     - libmysqlclient-dev
+#     - default-libmysqlclient-dev
+#     - libpq-dev 
+#     - libsvn-dev 
+#     - firebird-dev 
+#     - libmemcached-dev 
+#     - libgpg-error-dev 
+#     #- libgcrypt11-dev 
+#     - libgcrypt20-dev
+#     - libcanberra-gtk-module
+#     - libgcrypt-dev
+#     - libssl-dev
+#     - make
+#     - curl
+#     - gcc
+#     state: latest
+
+# - name: Clone thc-hydra into a temp build directory
+#   git:
+#     accept_hostkey: yes
+#     clone: yes
+#     depth: 1
+#     dest: /tmp/hydra
+#     force: yes
+#     repo: https://github.com/vanhauser-thc/thc-hydra.git
+#     version: v9.2
+
+# - name: Configure thc-hydra build
+#   shell: 'bash -lc "/tmp/hydra/configure"'
+#   args:
+#     chdir: /tmp/hydra
+
+# - name: Build thc-hydra
+#   make:
+#     chdir: /tmp/hydra
+
+# - name: Deploy/install thc-hydra
+#   become: true
+#   make:
+#     chdir: /tmp/hydra
+#     target: install
+
+# - name: Remove thc-hydra temp build directory
+#   file:
+#     path: /tmp/hydra
+#     state: absent
+
+- name: Install Hydra
   become: true
   apt:
     name:
-    - libssh-dev 
-    - libidn11-dev 
-    - libpcre3-dev 
-    - libgtk2.0-dev 
-    - libmysqlclient-dev
-    - default-libmysqlclient-dev
-    - libpq-dev 
-    - libsvn-dev 
-    - firebird-dev 
-    - libmemcached-dev 
-    - libgpg-error-dev 
-    #- libgcrypt11-dev 
-    - libgcrypt20-dev
-    - libcanberra-gtk-module
-    - libgcrypt-dev
-    - libssl-dev
-    - make
-    - curl
-    - gcc
+    - hydra
     state: latest
-
-- name: Clone thc-hydra into a temp build directory
-  git:
-    accept_hostkey: yes
-    clone: yes
-    depth: 1
-    dest: /tmp/hydra
-    force: yes
-    repo: https://github.com/vanhauser-thc/thc-hydra.git
-    version: v9.2
-
-- name: Configure thc-hydra build
-  shell: 'bash -lc "/tmp/hydra/configure"'
-  args:
-    chdir: /tmp/hydra
-
-- name: Build thc-hydra
-  make:
-    chdir: /tmp/hydra
-
-- name: Deploy/install thc-hydra
-  become: true
-  make:
-    chdir: /tmp/hydra
-    target: install
-
-- name: Remove thc-hydra temp build directory
-  file:
-    path: /tmp/hydra
-    state: absent
 
 - name: Setup desktop shortcut folder
   file:
