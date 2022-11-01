@@ -7,22 +7,14 @@
 - name: "Download gobuster {{ json_reponse.json.tag_name }}"
   become: true
   loop: "{{ json_reponse.json.assets }}"
-  when: "'gobuster-linux-amd64.7z' in item.name"
-  get_url:                                                           
-      url: "{{ item.browser_download_url }}"                     
-      dest: /tmp/gobuster-linux-amd64.7z
-
-- name: Install gobuster in /usr/local/bin/gobuster
-  become: true
-  shell: 7z e /tmp/gobuster-linux-amd64.7z -aoa -o/usr/local/bin/ gobuster -r
-
-- name: Set permissions for /usr/local/bin/gobuster
-  become: true
-  file:
-    path: /usr/local/bin/gobuster
-    owner: root
-    group: root
+  when: "'Linux_x86_64.tar.gz' in item.name"
+  unarchive:
+    remote_src: true
+    src: "{{ item.browser_download_url }}"
+    dest: "/usr/local/bin/"
     mode: '0755'
+    owner: root
+    group: root   
 
 - name: Create a symbolic link for gobuster to /usr/bin/gobuster
   become: true
@@ -32,3 +24,4 @@
     owner: root
     group: root
     state: link
+
