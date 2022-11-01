@@ -15,6 +15,6 @@
 
 - name: User-Agent Switcher and Manager
   get_url:
-    url: https://addons.mozilla.org/firefox/downloads/file/3769639/user_agent_switcher_and_manager-0.4.7.1-an+fx.xpi
+    url: https://addons.mozilla.org/firefox/downloads/file/3952467/user_agent_string_switcher-0.4.8.xpi
     dest: ~/.mozilla/extensions/user_agent_switcher_and_manager.xpi
 
