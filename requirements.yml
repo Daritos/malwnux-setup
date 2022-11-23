@@ -4,4 +4,4 @@
 
 - name: customize-gnome
   src: https://github.com/PeterMosmans/ansible-role-customize-gnome.git
-  version: origin/0.2.10
+  version: 0.2.10
