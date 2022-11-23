@@ -1,0 +1,52 @@
+- name: Pull latest Binwalk version
+  become: true
+  pip:
+    name:
+      - git+https://github.com/ReFirmLabs/binwalk.git
+      - pycryptodome
+    executable: pip3
+
+- name: Install Binwalk dependency
+  become: true
+  apt:
+    name:
+    - libqt4-opengl
+    - python3-opengl
+    - python3-pyqt4
+    - python3-pyqt4.qtopengl
+    - python3-numpy
+    - python3-scipy
+    - mtd-utils
+    - gzip
+    - bzip2
+    - tar
+    - arj
+    - lhasa
+    - p7zip
+    - p7zip-full
+    - cabextract
+    - cramfsprogs
+    - cramfsswap
+    - squashfs-tools
+    - sleuthkit
+    - default-jdk
+    - lzop
+    - srecord
+    - zlib1g-dev
+    - liblzma-dev
+    - liblzo2-dev
+    - python-lzo
+    state: latest
+
+- name: Install additiona binwalk dependencies
+  become: true
+  pip:
+    name:
+      - pyqtgraph
+      - capstone
+      - git+https://github.com/devttys0/sasquatch.git
+      - cstruct
+      - git+https://github.com/sviehb/jefferson.git
+      - git+https://github.com/jrspruitt/ubi_reader.git
+      - git+https://github.com/devttys0/yaffshiv.git
+    executable: pip3

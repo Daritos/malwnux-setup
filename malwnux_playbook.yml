@@ -16,7 +16,7 @@
 - name: Setup Utilities
   hosts: localhost
   connection: local
-  roles: ['openvpn', 'python3', 'python2', 'docker', 'docker-compose', 'proxychains', '7zip', 'firefox-extensions', 'passiverecon-tools', 'activerecon-tools', 'win_bins', 'cyberchef']
+  roles: ['openvpn', 'python3', 'python2', 'docker', 'docker-compose', 'proxychains', '7zip', 'firefox-extensions', 'passiverecon-tools', 'activerecon-tools', 'win_bins', 'cyberchef', 'binwalk']
 
 - name: Setup Editors
   hosts: localhost
@@ -97,3 +97,14 @@
     become: true
     apt:
       autoremove: true
+
+- name: Customize Gnome
+  hosts: localhost
+  connection: local
+  roles:
+    - role: petermosmans.customize-gnome
+  vars:
+    gnome_dconf:
+    gnome_extensions:
+      - id: 3612 # WireGuard Indicator
+    gnome_user: "{{ ansible_user_id }}"
