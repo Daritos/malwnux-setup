@@ -1,3 +1,7 @@
 - name: ansible-role-burpsuite
   src: https://github.com/Daritos/ansible-role-burpsuite.git
   version: origin/fix_json_query
+
+- name: customize-gnome
+  src: https://github.com/PeterMosmans/ansible-role-customize-gnome.git
+  version: origin/0.2.10
