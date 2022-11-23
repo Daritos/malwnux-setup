@@ -10,10 +10,10 @@
   become: true
   apt:
     name:
-    - libqt4-opengl
+    - libqt5opengl5
     - python3-opengl
-    - python3-pyqt4
-    - python3-pyqt4.qtopengl
+    - python3-pyqt5
+    - python3-pyqt5.qtopengl
     - python3-numpy
     - python3-scipy
     - mtd-utils
