@@ -1,23 +1,28 @@
 - name: Create /opt/pykms directory
+  become: true
   file:
     path: /opt/pykms
     state: directory
 
 - name: Create /opt/pykms/db directory
+  become: true
   file:
     path: /opt/pykms/db
     state: directory
 
 - name: Create /opt/pykms/logs directory
+  become: true
   file:
     path: /opt/pykms/logs
     state: directory
 
 - name: Deploy docker-compose config
+  become: true
   template:
     src: docker-compose.yml.j2
     dest: /opt/pykms/docker-compose.yml
 
 - name: Start pykms
+  become: true
   docker_compose:
     project_src: /opt/pykms
