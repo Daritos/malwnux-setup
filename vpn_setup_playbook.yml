@@ -9,11 +9,15 @@
     - openvpn_key: ""
     - openvpn_tls_auth: ""
   tasks:
-  - name: Deploy openvpn_config.ovpn
+  - name: Delete any old OpenVPN configurations (if they exist)
+    become: true
+    shell: "nmcli connection delete OpenVPN"
+    ignore_errors: true
+  - name: Deploy OpenVPN.ovpn
     become: true
     template:
-      src: openvpn_config.ovpn.j2
-      dest: '/etc/openvpn/openvpn_config.ovpn'
+      src: OpenVPN.ovpn.j2
+      dest: '/etc/openvpn/OpenVPN.ovpn'
       owner: root
       group: root
   - name: Deploy up script
@@ -32,9 +36,9 @@
       owner: root
       group: root
       mode: '0700'
-  - name: Import openvpn_config.ovpn
+  - name: Import OpenVPN.ovpn
     become: true
-    shell: "nmcli connection import type openvpn file /etc/openvpn/openvpn_config.ovpn"
+    shell: "nmcli connection import type openvpn file /etc/openvpn/OpenVPN.ovpn"
   - name: Enable IP Forwarding
     become: true
     sysctl:
