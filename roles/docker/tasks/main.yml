@@ -45,3 +45,8 @@
     state: present
     update_cache: true
 
+- name: Make sure python package docker is present
+  pip:
+    name: docker
+    state: present
+
