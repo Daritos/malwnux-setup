@@ -1,0 +1,45 @@
+- name: Network configuration with VPN Killswtich
+  hosts: localhost
+  connection: local
+  vars:
+    - internal_if: "ens34"
+    - openvpn_ip: ""
+    - openvpn_ca: ""
+    - openvpn_cert: ""
+    - openvpn_key: ""
+    - openvpn_tls_auth: ""
+  tasks:
+  - name: Deploy openvpn_config.ovpn
+    become: true
+    template:
+      src: openvpn_config.ovpn.j2
+      dest: '/etc/openvpn/openvpn_config.ovpn'
+      owner: root
+      group: root
+  - name: Deploy up script
+    become: true
+    template:
+      src: openvpn_up.sh.j2
+      dest: '/etc/openvpn/up.sh'
+      owner: root
+      group: root
+      mode: '0700'
+  - name: Deploy down script
+    become: true
+    template:
+      src: openvpn_down.sh.j2
+      dest: '/etc/openvpn/down.sh'
+      owner: root
+      group: root
+      mode: '0700'
+  - name: Deploy down script
+    become: true
+    shell: "nmcli connection import openvpn /etc/openvpn/openvpn_config.ovpn"
+  - name: Enable IP Forwarding
+    become: true
+    sysctl:
+      name: net.ipv4.ip_forward
+      value: 1
+      sysctl_set: yes
+      state: present
+      reload: yes

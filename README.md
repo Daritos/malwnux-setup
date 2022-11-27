@@ -24,6 +24,18 @@ Install required ansible galaxies
 ansible-galaxy install -r requirements.yml --force
 ```
 
+(Optional) If you have access configure an OpenVPN client and intent to use your linux host as a gateway you can run the following playbook to push the settings and take care of all the routing.
+
+```bash
+ansible-playbook -i inventory/inventory.ini --ask-become-pass -k vpn_setup_playbook.yml -u <insert_your_username_here>
+```
+
+(Optional) If you have a VPN tunnel configured you can run the network setup playbook to setup a network killswitch (ensuring no traffic leaves the machine if it is not going through the VPN tunnel)
+
+```bash
+ansible-playbook -i inventory/inventory.ini --ask-become-pass -k network_setup_playbook.yml -u <insert_your_username_here>
+```
+
 Now run the playbook from the repository
 
 ```bash
@@ -95,6 +107,7 @@ ansible-playbook -i inventory/inventory.ini --ask-become-pass -k malwnux_playboo
 * Docker Compose
 * proxychains
 * CyberChef
+* binwalk
 
 #### Firefox Extensions
 

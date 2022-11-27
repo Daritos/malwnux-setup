@@ -1,0 +1,30 @@
+dev tun
+persist-tun
+persist-key
+data-ciphers AES-256-GCM:AES-128-GCM:CHACHA20-POLY1305:AES-256-CBC
+data-ciphers-fallback AES-256-CBC
+auth SHA1
+tls-client
+client
+resolv-retry infinite
+remote {{ openvpn_ip }} 1194 udp4
+nobind
+remote-cert-tls server
+explicit-exit-notify
+
+up /etc/openvpn/up.sh
+down /etc/openvpn/down.sh
+
+<ca>
+{{ openvpn_ca }}
+</ca>
+<cert>
+{{ openvpn_cert }}
+</cert>
+<key>
+{{ openvpn_key }}
+</key>
+key-direction 1
+<tls-auth>
+{{ openvpn_tls_auth }}
+</tls-auth>

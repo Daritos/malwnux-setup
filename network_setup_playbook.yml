@@ -1,0 +1,142 @@
+- name: Network configuration with VPN Killswtich
+  hosts: localhost
+  connection: local
+  vars:
+    - ethernet_interface:
+      - conn_name: "ens33"
+        range4: "192.168.255.0/24"
+        ip4: "192.168.255.50/24"
+        gw4: "192.168.255.1"
+        dns4: "8.8.8.8"
+      - conn_name: "ens34"
+        range4: "172.16.6.0/24"
+        ip4: "172.16.6.50/24"
+        gw4: ""
+        dns4: ""
+    - main_interface: ""
+    - vpn_ip: ""
+  tasks:
+  - name: Configure Ethernet interface
+    become: true
+    nmcli:
+      conn_name: '{{ item.conn_name }}'
+      type: ethernet
+      ip4: '{{ item.ip4 }}'
+      gw4: '{{ item.gw4 }}'
+      dns4: '{{ item.dns4 }}'
+      state: present
+    loop: '{{ ethernet_interface }}'
+  - name: Install IPtables-persistent
+    become: true
+    apt:
+      name:
+        - iptables-persistent
+      update_cache: yes
+      state: present
+  - name: Disallow all traffic
+    become: true
+    iptables:
+      chain: INPUT
+      jump: DROP
+  - name: Disallow all traffic
+    become: true
+    iptables:
+      chain: FORWARD
+      jump: DROP
+  - name: Disallow all traffic
+    become: true
+    iptables:
+      chain: OUTPUT
+      jump: DROP
+  - name: Allow Loopback and Ping
+    become: true
+    iptables:
+      chain: INPUT
+      in_interface: lo
+      jump: ACCEPT
+  - name: Allow Loopback and Ping
+    become: true
+    iptables:
+      chain: INPUT
+      out_interface : lo
+      jump: ACCEPT
+  - name: Allow Loopback and Ping
+    become: true
+    iptables:
+      chain: OUTPUT
+      out_interface : tun0
+      jump: ACCEPT
+  - name: Allow DHCP server
+    become: true
+    iptables:
+      chain: OUTPUT
+      destination: 255.255.255.255
+      jump: ACCEPT
+  - name: Allow DHCP server
+    become: true
+    iptables:
+      INPUT: OUTPUT
+      source: 255.255.255.255
+      jump: ACCEPT
+  - name: Allow Local/LAN network
+    become: true
+    iptables:
+      INPUT: INPUT
+      source: "{{ item.range4 }}"
+      destination: "{{ item.range4 }}"
+      jump: ACCEPT
+    loop: '{{ ethernet_interface }}'
+  - name: Allow Local/LAN network
+    become: true
+    iptables:
+      INPUT: OUTPUT
+      source: "{{ item.range4 }}"
+      destination: "{{ item.range4 }}"
+      jump: ACCEPT
+    loop: '{{ ethernet_interface }}'
+  - name: Allow established sessions
+    become: true
+    iptables:
+      INPUT: INPUT
+      ctstate: ESTABLISHED,RELATED
+      jump: ACCEPT
+  - name: Allow DNS
+    become: true
+    iptables:
+      chain: OUTPUT
+      destination: "{{vpn_ip}}"
+      jump: ACCEPT
+  - name: Allow VPN
+    become: true
+    iptables:
+      chain: OUTPUT
+      destination: "{{vpn_ip}}"
+      protocol: udp
+      destination_ports:
+        - 1194
+        - 53
+      out_interface: eth*
+      jump: ACCEPT
+  connection: local
+  tasks:
+  - name: Drop IPv6
+    become: true
+    iptables:
+      ip_version: "ipv6"
+      chain: INPUT
+      jump: DROP
+  - name: Drop IPv6
+    become: true
+    iptables:
+      ip_version: "ipv6"
+      chain: FORWARD
+      jump: DROP
+  - name: Drop IPv6
+    become: true
+    iptables:
+      ip_version: "ipv6"
+      chain: OUTPUT
+      jump: DROP
+  - name: Save iptables
+    become: true
+    shell: iptables-save > /etc/iptables/rules.v4
