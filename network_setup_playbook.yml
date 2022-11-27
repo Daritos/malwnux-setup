@@ -116,8 +116,6 @@
         - 53
       out_interface: eth*
       jump: ACCEPT
-  connection: local
-  tasks:
   - name: Drop IPv6
     become: true
     iptables:
