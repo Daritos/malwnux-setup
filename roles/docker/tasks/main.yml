@@ -49,4 +49,5 @@
   pip:
     name: docker
     state: present
+    executable: pip3
 

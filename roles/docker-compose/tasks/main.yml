@@ -18,4 +18,5 @@
   pip:
     name: docker-compose
     state: present
+    executable: pip3
 
