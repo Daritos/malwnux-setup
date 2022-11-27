@@ -42,16 +42,19 @@
     iptables:
       chain: INPUT
       jump: DROP
+      action: "insert"
   - name: Disallow all traffic
     become: true
     iptables:
       chain: FORWARD
       jump: DROP
+      action: "insert"
   - name: Disallow all traffic
     become: true
     iptables:
       chain: OUTPUT
       jump: DROP
+      action: "insert"
   - name: Allow Loopback and Ping (OUTPUT)
     become: true
     iptables:
