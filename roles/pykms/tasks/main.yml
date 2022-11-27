@@ -1,0 +1,23 @@
+- name: Create /opt/pykms directory
+  file:
+    path: /opt/pykms
+    state: directory
+
+- name: Create /opt/pykms/db directory
+  file:
+    path: /opt/pykms/db
+    state: directory
+
+- name: Create /opt/pykms/logs directory
+  file:
+    path: /opt/pykms/logs
+    state: directory
+
+- name: Deploy docker-compose config
+  template:
+    src: docker-compose.yml.j2
+    dest: /opt/pykms/docker-compose.yml
+
+- name: Start pykms
+  docker_compose:
+    project_src: /opt/pykms

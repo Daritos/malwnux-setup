@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  kms:
+    image: ghcr.io/py-kms-organization/py-kms:python3
+    ports:
+      - 1688:1688
+      - 8080:8080
+    environment:
+      - IP=0.0.0.0
+      - SQLITE=true
+      - HWID=RANDOM
+      - LOGLEVEL=INFO
+      - LOGFILE=/var/logs/pykms/pykms_logserver.log
+      - CLIENT_COUNT=26
+      - ACTIVATION_INTERVAL=120 # 120 minutes (2 hours)
+      - RENEWAL_INTERVAL=10080 # 10080 minutes (7 days).
+    restart: always
+    volumes:
+      - /opt/pykms/db:/home/py-kms/db
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/pykms/logs/:/var/logs/pykms

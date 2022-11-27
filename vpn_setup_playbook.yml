@@ -39,6 +39,9 @@
   - name: Import OpenVPN.ovpn
     become: true
     shell: "nmcli connection import type openvpn file /etc/openvpn/OpenVPN.ovpn"
+  # - name: Enable OpenVPN.ovpn on boot
+  #   become: true
+  #   shell: "nmcli connection modify OpenVPN connection.autoconnect yes"
   - name: Enable IP Forwarding
     become: true
     sysctl:

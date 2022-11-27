@@ -1,0 +1,4 @@
+- name: Setup PyKMS
+  hosts: localhost
+  connection: local
+  roles: ['docker', 'docker-compose', 'pykms']
