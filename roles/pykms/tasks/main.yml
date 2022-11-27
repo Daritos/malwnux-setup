@@ -9,12 +9,16 @@
   file:
     path: /opt/pykms/db
     state: directory
+    owner: 100
+    group: 100
 
 - name: Create /opt/pykms/logs directory
   become: true
   file:
     path: /opt/pykms/logs
     state: directory
+    owner: 100
+    group: 100
 
 - name: Deploy docker-compose config
   become: true
