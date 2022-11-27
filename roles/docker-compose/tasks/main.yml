@@ -15,6 +15,7 @@
     state: link
 
 - name: Make sure python package docker-compose is present
+  become: true
   pip:
     name: docker-compose
     state: present
