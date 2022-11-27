@@ -12,8 +12,12 @@ nobind
 remote-cert-tls server
 explicit-exit-notify
 
+script-security 2
 up /etc/openvpn/up.sh
 down /etc/openvpn/down.sh
+
+# prevent DNS leakage
+dhcp-option DOMAIN-ROUTE .
 
 <ca>
 {{ openvpn_ca }}

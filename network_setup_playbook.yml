@@ -6,7 +6,7 @@
       - conn_name: "ens33"
         range4: "192.168.255.0/24"
         ip4: "192.168.255.50/24"
-        gw4: "192.168.255.1"
+        gw4: "192.168.255.2"
         dns4: "8.8.8.8"
       - conn_name: "ens34"
         range4: "172.16.6.0/24"
@@ -30,8 +30,13 @@
     apt:
       name:
         - iptables-persistent
-      update_cache: yes
       state: present
+  - name: Clear iptables
+    become: true
+    iptables:
+      chain: "{{ item }}"
+      flush: yes
+    with_items:  [ 'INPUT', 'FORWARD', 'OUTPUT' ]
   - name: Disallow all traffic
     become: true
     iptables:
@@ -47,64 +52,66 @@
     iptables:
       chain: OUTPUT
       jump: DROP
-  - name: Allow Loopback and Ping
+  - name: Allow Loopback and Ping (OUTPUT)
     become: true
     iptables:
-      chain: INPUT
-      in_interface: lo
-      jump: ACCEPT
-  - name: Allow Loopback and Ping
-    become: true
-    iptables:
-      chain: INPUT
+      chain: OUTPUT
       out_interface : lo
       jump: ACCEPT
-  - name: Allow Loopback and Ping
+      action: "insert"
+  - name: Allow VPN tunnel traffic
     become: true
     iptables:
       chain: OUTPUT
       out_interface : tun0
       jump: ACCEPT
-  - name: Allow DHCP server
+      action: "insert"
+  - name: Allow DHCP server (destination)
     become: true
     iptables:
       chain: OUTPUT
       destination: 255.255.255.255
       jump: ACCEPT
-  - name: Allow DHCP server
+      action: "insert"
+  - name: Allow DHCP server (source)
     become: true
     iptables:
-      INPUT: OUTPUT
+      chain: OUTPUT
       source: 255.255.255.255
       jump: ACCEPT
+      action: "insert"
   - name: Allow Local/LAN network
     become: true
     iptables:
-      INPUT: INPUT
+      chain: INPUT
       source: "{{ item.range4 }}"
       destination: "{{ item.range4 }}"
       jump: ACCEPT
+      action: "insert"
     loop: '{{ ethernet_interface }}'
   - name: Allow Local/LAN network
     become: true
     iptables:
-      INPUT: OUTPUT
+      chain: OUTPUT
       source: "{{ item.range4 }}"
       destination: "{{ item.range4 }}"
       jump: ACCEPT
+      action: "insert"
     loop: '{{ ethernet_interface }}'
   - name: Allow established sessions
     become: true
     iptables:
-      INPUT: INPUT
+      chain: INPUT
       ctstate: ESTABLISHED,RELATED
       jump: ACCEPT
+      action: "insert"
   - name: Allow DNS
     become: true
     iptables:
       chain: OUTPUT
       destination: "{{vpn_ip}}"
       jump: ACCEPT
+      action: "insert"
   - name: Allow VPN
     become: true
     iptables:
@@ -116,24 +123,28 @@
         - 53
       out_interface: eth*
       jump: ACCEPT
+      action: "insert"
   - name: Drop IPv6
     become: true
     iptables:
       ip_version: "ipv6"
       chain: INPUT
       jump: DROP
+      action: "insert"
   - name: Drop IPv6
     become: true
     iptables:
       ip_version: "ipv6"
       chain: FORWARD
       jump: DROP
+      action: "insert"
   - name: Drop IPv6
     become: true
     iptables:
       ip_version: "ipv6"
       chain: OUTPUT
       jump: DROP
+      action: "insert"
   - name: Save iptables
     become: true
     shell: iptables-save > /etc/iptables/rules.v4
