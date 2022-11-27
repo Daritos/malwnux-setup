@@ -13,7 +13,6 @@
         ip4: "172.16.6.50/24"
         gw4: ""
         dns4: ""
-    - main_interface: ""
     - vpn_ip: ""
   tasks:
   - name: Configure Ethernet interface

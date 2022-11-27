@@ -32,9 +32,9 @@
       owner: root
       group: root
       mode: '0700'
-  - name: Deploy down script
+  - name: Import openvpn_config.ovpn
     become: true
-    shell: "nmcli connection import openvpn /etc/openvpn/openvpn_config.ovpn"
+    shell: "nmcli connection import type openvpn file /etc/openvpn/openvpn_config.ovpn"
   - name: Enable IP Forwarding
     become: true
     sysctl:
