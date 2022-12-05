@@ -1,0 +1,23 @@
+---
+localhost:
+    hosts:
+        127.0.0.1:
+            ansible_connection: local
+            internal_if: "ens34"
+            openvpn_ip: ""
+            openvpn_ca: ""
+            openvpn_cert: ""
+            openvpn_key: ""
+            openvpn_tls_auth: ""
+            ethernet_interface:
+            - conn_name: "ens33"
+              range4: "192.168.255.0/24"
+              ip4: "192.168.255.50/24"
+              gw4: "192.168.255.2"
+              dns4: "8.8.8.8"
+            - conn_name: "ens34"
+              range4: "172.16.6.0/24"
+              ip4: "172.16.6.50/24"
+              gw4: ""
+              dns4: ""
+            vpn_ip: ""
