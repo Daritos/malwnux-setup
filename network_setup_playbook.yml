@@ -25,6 +25,18 @@
       dns4: '{{ item.dns4 }}'
       state: present
     loop: '{{ ethernet_interface }}'
+  - name: Remove /etc/resolv.conf
+    become: true
+    file:
+      path: /etc/resolv.conf
+      state: absent
+  - name: Set new static /etc/resolv.conf
+    become: true
+    template:
+      src: /etc/resolv.conf.j2
+      dest: /etc/resolv.conf
+      owner: root
+      group: root
   - name: Install IPtables-persistent
     become: true
     apt:
