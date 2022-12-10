@@ -1,47 +1,57 @@
 - name: Install Docker GPG-KEY
+  become: true
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
 - name: Add docker repo
+  become: true
   apt_repository:
     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable"
 
 - name: Install/enable https apt transport
+  become: true
   apt:
     name: apt-transport-https
     update_cache: true
 
 - name: Install docker-ce
+  become: true
   apt:
     name: docker-ce
     state: latest
 
 - name: Install python3
+  become: true
   apt:
     name: python3
     state: present
     update_cache: true
 
 - name: Install python3-dev
+  become: true
   apt:
     name: python3-dev
     state: present
 
 - name: Get pip
+  become: true
   get_url:
     url: https://bootstrap.pypa.io/get-pip.py
     dest: /tmp/get-pip.py
 
 - name: Install pip3
+  become: true
   shell: python3 /tmp/get-pip.py
 
 - name: Make sure python package docker-compose is present
+  become: true
   pip:
     name: docker-compose
     state: present
 
 - name: Get docker-compose binary
+  become: true
   get_url:
     url: "https://github.com/docker/compose/releases/download/{{ DOCKER_COMPOSE_VERSION }}/docker-compose-linux-x86_64"
     dest: /usr/local/bin/docker-compose

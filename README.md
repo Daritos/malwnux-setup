@@ -39,7 +39,7 @@ ansible-playbook -i inventory/inventory.ini --ask-become-pass -k network_setup_p
 (Optional) Setup pyKMS
 
 ```bash
-ansible-playbook -i inventory/inventory.ini --ask-become-pass -k deploy_kms_playbook.ymll -u <insert_your_username_here>
+ansible-playbook -i inventory/inventory.ini --ask-become-pass -k deploy_kms_playbook.yml -u <insert_your_username_here>
 ```
 
 Now run the playbook from the repository
