@@ -124,3 +124,19 @@
   copy:
     content: 'export PATH="/opt/john:$PATH"\nexport JOHN="/opt/john"'
     dest: "/etc/profile.d/john_path.sh"
+
+- name: Add to PATH
+  become: true
+  lineinfile:
+    dest: "/etc/environment"
+    state: present
+    regexp: '^(PATH=\")(\/opt\/john:)?((?(2).*?(?!(?:.\"))|.*?(?!(?:\/opt\/john))))(:\/opt\/john)?((?(4).*|\"))'
+    line: '\1\3:/opt/john\5'
+    backrefs: true
+
+- name: Add john home to system-wide $JOHN
+  become: true
+  lineinfile:
+    dest: /etc/environment
+    state: present
+    line: 'JOHN="/opt/john"'
