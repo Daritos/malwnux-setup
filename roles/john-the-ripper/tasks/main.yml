@@ -49,6 +49,9 @@
     - cmake
     - bison
     - flex
+    - clang-14
+    - lld-14
+    - clang
     state: latest
 
 - name: Pull latest rexgen version
