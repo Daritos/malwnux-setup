@@ -1,3 +1,10 @@
+- name: Remove any pre-existing john installations
+  become: true
+  apt:
+    pkg: 
+    - john
+    state: absent
+
 - name: Install Preconditions and Required dependencies
   become: true
   apt:
@@ -106,9 +113,14 @@
     path: /src/john/run
     state: absent
 
-- name: Add john bin dir to system-wide $PATH
-  become: true
-  lineinfile:
-    dest: /etc/environment
-    state: present
-    line: 'PATH="/opt/john:$PATH"'
+# - name: Add john bin dir to system-wide $PATH
+#   become: true
+#   lineinfile:
+#     dest: /etc/environment
+#     state: present
+#     line: 'PATH="/opt/john:$PATH"'
+
+- name: Add to PATH
+  copy:
+    content: 'export PATH="/opt/john:$PATH"\nexport JOHN="/opt/john"'
+    dest: "/etc/profile.d/john_path.sh"
