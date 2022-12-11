@@ -1,0 +1,81 @@
+- name: Install Preconditions and Required dependencies
+  become: true
+  apt:
+    pkg: 
+    - build-essential
+    - libssl-dev
+    - zlib1g-dev
+    state: latest
+
+- name: Install Recommended (extra formats and performance) dependencies
+  become: true
+  apt:
+    pkg: 
+    - yasm
+    - pkg-config
+    - libgmp-dev
+    - libpcap-dev
+    - libbz2-dev
+    state: latest
+
+- name: Install NVIDIA GPU(s) (OpenCL support) dependencies
+  become: true
+  apt:
+    pkg: 
+    - nvidia-opencl-dev
+    state: latest
+
+- name: Install AMD GPU(s) (OpenCL support) dependencies
+  become: true
+  apt:
+    pkg: 
+    - ocl-icd-opencl-dev
+    - opencl-headers
+    state: latest
+
+- name: Install CPU device for OpenCL (OpenCL support) dependencies
+  become: true
+  apt:
+    pkg: 
+    - ocl-icd-opencl-dev
+    - opencl-headers
+    - pocl-opencl-icd
+    state: latest
+
+- name: Install REXGEN support dependencies
+  become: true
+  apt:
+    pkg: 
+    - cmake
+    - bison
+    - flex
+    state: latest
+
+- name: Pull latest rexgen version
+  become: true
+  git:
+    repo: 'https://github.com/teeshop/rexgen.git'
+    dest: "/src/rexgen"
+    update: true
+    force: true
+    recursive: true
+
+- name: Install rexgen
+  become: true
+  shell:
+    cmd: "cd /src/rexgen && ./install.sh"
+
+- name: Pull bleeding-jumbo john version
+  become: true
+  git:
+    repo: 'https://github.com/openwall/john'
+    dest: "/src/john"
+    update: true
+    force: true
+    recursive: true
+    version: "bleeding-jumbo"
+
+- name: Build john
+  become: true
+  shell:
+    cmd: "cd /src/john && ./configure --enable-rexge && make -s clean && make -sj4"
