@@ -24,7 +24,7 @@
     become: true
     template:
       src: openvpn_up.sh.j2
-      dest: '/etc/openvpn/up.sh'
+      dest: '/etc/network/if-up.d/openvpn_up'
       owner: root
       group: root
       mode: '0700'
@@ -32,7 +32,7 @@
     become: true
     template:
       src: openvpn_down.sh.j2
-      dest: '/etc/openvpn/down.sh'
+      dest: '/etc/network/if-down.d/openvpn_down'
       owner: root
       group: root
       mode: '0700'
