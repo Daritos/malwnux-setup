@@ -1,0 +1,5 @@
+- name: Setup John The Ripper
+  hosts: localhost
+  become: true
+  connection: local
+  roles: ['john-the-ripper']

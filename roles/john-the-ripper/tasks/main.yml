@@ -42,31 +42,31 @@
     - pocl-opencl-icd
     state: latest
 
-- name: Install REXGEN support dependencies
-  become: true
-  apt:
-    pkg: 
-    - cmake
-    - bison
-    - flex
-    - clang-14
-    - lld-14
-    - clang
-    state: latest
+# - name: Install REXGEN support dependencies
+#   become: true
+#   apt:
+#     pkg: 
+#     - cmake
+#     - bison
+#     - flex
+#     - clang-14
+#     - lld-14
+#     - clang
+#     state: latest
 
-- name: Pull latest rexgen version
-  become: true
-  git:
-    repo: 'https://github.com/teeshop/rexgen.git'
-    dest: "/src/rexgen"
-    update: true
-    force: true
-    recursive: true
+# - name: Pull latest rexgen version
+#   become: true
+#   git:
+#     repo: 'https://github.com/teeshop/rexgen.git'
+#     dest: "/src/rexgen"
+#     update: true
+#     force: true
+#     recursive: true
 
-- name: Install rexgen
-  become: true
-  shell:
-    cmd: "cd /src/rexgen && ./install.sh"
+# - name: Install rexgen
+#   become: true
+#   shell:
+#     cmd: "cd /src/rexgen && ./install.sh"
 
 - name: Pull bleeding-jumbo john version
   become: true
@@ -81,4 +81,31 @@
 - name: Build john
   become: true
   shell:
-    cmd: "cd /src/john && ./configure --enable-rexge && make -s clean && make -sj4"
+    cmd: "cd /src/john/src && ./configure && make -s clean && make -sj4"
+#    cmd: "cd /src/john/src && ./configure --enable-rexgen && make -s clean && make -sj4"
+
+- name: Remove any old /opt/john
+  become: true
+  file:
+    path: /opt/john
+    state: absent
+
+- name: Setup /opt/john directory
+  become: true
+  copy: 
+    remote_src: true
+    src: /src/john/run
+    dest: /opt/john
+
+- name: Clean up build directory
+  become: true
+  file:
+    path: /src/john/run
+    state: absent
+
+- name: Add john bin dir to system-wide $PATH
+  become: true
+  lineinfile:
+    dest: /etc/environment
+    state: present
+    line: 'PATH="/opt/john:$PATH"'

@@ -33,7 +33,7 @@
   - name: Set new static /etc/resolv.conf
     become: true
     template:
-      src: /etc/resolv.conf.j2
+      src: resolv.conf.j2
       dest: /etc/resolv.conf
       owner: root
       group: root
@@ -49,13 +49,13 @@
       chain: "{{ item }}"
       flush: yes
     with_items:  [ 'INPUT', 'FORWARD', 'OUTPUT' ]
-  - name: Disallow all traffic
+  - name: Disallow all traffic (INPUT chain)
     become: true
     iptables:
       chain: INPUT
       jump: DROP
       action: "insert"
-  - name: Disallow all traffic
+  - name: Disallow all traffic (FORWARD chain)
     become: true
     iptables:
       chain: FORWARD
@@ -67,6 +67,11 @@
       chain: OUTPUT
       jump: DROP
       action: "insert"
+  - name: Restart docker (to restore docker rules)
+    become: true
+    systemd:
+      name: docker
+      state: restarted
   - name: Allow Loopback and Ping (OUTPUT)
     become: true
     iptables:
