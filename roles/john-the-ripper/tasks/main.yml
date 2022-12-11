@@ -5,138 +5,162 @@
     - john
     state: absent
 
-- name: Install Preconditions and Required dependencies
+- name: Install "john-the-ripper"
   become: true
-  apt:
-    pkg: 
-    - build-essential
-    - libssl-dev
-    - zlib1g-dev
-    state: latest
+  snap:
+    name: john-the-ripper
+    state: present
 
-- name: Install Recommended (extra formats and performance) dependencies
+- name: Setup Snap aliases for John 
   become: true
-  apt:
-    pkg: 
-    - yasm
-    - pkg-config
-    - libgmp-dev
-    - libpcap-dev
-    - libbz2-dev
-    state: latest
+  shell:
+    cmd: "{{ item }}"
+  loop:
+    - snap alias john-the-ripper.dmg2john dmg2john
+    - snap alias john-the-ripper.hccap2john hccap2john
+    - snap alias john-the-ripper.racf2john racf2john
+    - snap alias john-the-ripper.vncpcap2john vncpcap2john
+    - snap alias john-the-ripper.zip2john zip2john
+    - snap alias john-the-ripper.gpg2john gpg2john
+    - snap alias john-the-ripper.keepass2john keepass2john
+    - snap alias john-the-ripper.putty2john putty2john
+    - snap alias john-the-ripper.rar2john rar2john
+    - snap alias john-the-ripper.uaf2john uaf2john
+    - snap alias john-the-ripper.wpapcap2john wpapcap2john
 
-- name: Install NVIDIA GPU(s) (OpenCL support) dependencies
-  become: true
-  apt:
-    pkg: 
-    - nvidia-opencl-dev
-    state: latest
 
-- name: Install AMD GPU(s) (OpenCL support) dependencies
-  become: true
-  apt:
-    pkg: 
-    - ocl-icd-opencl-dev
-    - opencl-headers
-    state: latest
-
-- name: Install CPU device for OpenCL (OpenCL support) dependencies
-  become: true
-  apt:
-    pkg: 
-    - ocl-icd-opencl-dev
-    - opencl-headers
-    - pocl-opencl-icd
-    state: latest
-
-# - name: Install REXGEN support dependencies
+# - name: Install Preconditions and Required dependencies
 #   become: true
 #   apt:
 #     pkg: 
-#     - cmake
-#     - bison
-#     - flex
-#     - clang-14
-#     - lld-14
-#     - clang
+#     - build-essential
+#     - libssl-dev
+#     - zlib1g-dev
 #     state: latest
 
-# - name: Pull latest rexgen version
+# - name: Install Recommended (extra formats and performance) dependencies
+#   become: true
+#   apt:
+#     pkg: 
+#     - yasm
+#     - pkg-config
+#     - libgmp-dev
+#     - libpcap-dev
+#     - libbz2-dev
+#     state: latest
+
+# - name: Install NVIDIA GPU(s) (OpenCL support) dependencies
+#   become: true
+#   apt:
+#     pkg: 
+#     - nvidia-opencl-dev
+#     state: latest
+
+# - name: Install AMD GPU(s) (OpenCL support) dependencies
+#   become: true
+#   apt:
+#     pkg: 
+#     - ocl-icd-opencl-dev
+#     - opencl-headers
+#     state: latest
+
+# - name: Install CPU device for OpenCL (OpenCL support) dependencies
+#   become: true
+#   apt:
+#     pkg: 
+#     - ocl-icd-opencl-dev
+#     - opencl-headers
+#     - pocl-opencl-icd
+#     state: latest
+
+# # - name: Install REXGEN support dependencies
+# #   become: true
+# #   apt:
+# #     pkg: 
+# #     - cmake
+# #     - bison
+# #     - flex
+# #     - clang-14
+# #     - lld-14
+# #     - clang
+# #     state: latest
+
+# # - name: Pull latest rexgen version
+# #   become: true
+# #   git:
+# #     repo: 'https://github.com/teeshop/rexgen.git'
+# #     dest: "/src/rexgen"
+# #     update: true
+# #     force: true
+# #     recursive: true
+
+# # - name: Install rexgen
+# #   become: true
+# #   shell:
+# #     cmd: "cd /src/rexgen && ./install.sh"
+
+# - name: Pull bleeding-jumbo john version
 #   become: true
 #   git:
-#     repo: 'https://github.com/teeshop/rexgen.git'
-#     dest: "/src/rexgen"
+#     repo: 'https://github.com/openwall/john'
+#     dest: "/src/john"
 #     update: true
 #     force: true
 #     recursive: true
+#     version: "bleeding-jumbo"
 
-# - name: Install rexgen
+# - name: Build john
 #   become: true
 #   shell:
-#     cmd: "cd /src/rexgen && ./install.sh"
+#     cmd: "cd /src/john/src && ./configure && make -s clean && make -sj4"
+# #    cmd: "cd /src/john/src && ./configure --enable-rexgen && make -s clean && make -sj4"
 
-- name: Pull bleeding-jumbo john version
-  become: true
-  git:
-    repo: 'https://github.com/openwall/john'
-    dest: "/src/john"
-    update: true
-    force: true
-    recursive: true
-    version: "bleeding-jumbo"
+# - name: Remove any old /opt/john
+#   become: true
+#   file:
+#     path: /opt/john
+#     state: absent
 
-- name: Build john
-  become: true
-  shell:
-    cmd: "cd /src/john/src && ./configure && make -s clean && make -sj4"
-#    cmd: "cd /src/john/src && ./configure --enable-rexgen && make -s clean && make -sj4"
+# - name: Setup /opt/john directory
+#   become: true
+#   copy: 
+#     remote_src: true
+#     src: /src/john/run
+#     dest: /opt
 
-- name: Remove any old /opt/john
-  become: true
-  file:
-    path: /opt/john
-    state: absent
+# - name: Rename run directory to john
+#   command: mv /opt/run /opt/john
 
-- name: Setup /opt/john directory
-  become: true
-  copy: 
-    remote_src: true
-    src: /src/john/run
-    dest: /opt
+# - name: Clean up build directory
+#   become: true
+#   file:
+#     path: /src/john/run
+#     state: absent
 
-- name: Rename run directory to john
-  command: mv /opt/run /opt/john
+# # - name: Add john bin dir to system-wide $PATH
+# #   become: true
+# #   lineinfile:
+# #     dest: /etc/environment
+# #     state: present
+# #     line: 'PATH="/opt/john:$PATH"'
 
-- name: Clean up build directory
-  become: true
-  file:
-    path: /src/john/run
-    state: absent
+# - name: Add to PATH
+#   copy:
+#     content: 'export PATH="/opt/john:$PATH"\nexport JOHN="/opt/john"'
+#     dest: "/etc/profile.d/john_path.sh"
 
-# - name: Add john bin dir to system-wide $PATH
+# - name: Add to PATH
+#   become: true
+#   lineinfile:
+#     dest: "/etc/environment"
+#     state: present
+#     regexp: '^(PATH=\")(\/opt\/john:)?((?(2).*?(?!(?:.\"))|.*?(?!(?:\/opt\/john))))(:\/opt\/john)?((?(4).*|\"))'
+#     line: '\1\3:/opt/john\5'
+#     backrefs: true
+
+# - name: Add john home to system-wide $JOHN
 #   become: true
 #   lineinfile:
 #     dest: /etc/environment
 #     state: present
-#     line: 'PATH="/opt/john:$PATH"'
-
-- name: Add to PATH
-  copy:
-    content: 'export PATH="/opt/john:$PATH"\nexport JOHN="/opt/john"'
-    dest: "/etc/profile.d/john_path.sh"
-
-- name: Add to PATH
-  become: true
-  lineinfile:
-    dest: "/etc/environment"
-    state: present
-    regexp: '^(PATH=\")(\/opt\/john:)?((?(2).*?(?!(?:.\"))|.*?(?!(?:\/opt\/john))))(:\/opt\/john)?((?(4).*|\"))'
-    line: '\1\3:/opt/john\5'
-    backrefs: true
-
-- name: Add john home to system-wide $JOHN
-  become: true
-  lineinfile:
-    dest: /etc/environment
-    state: present
-    line: 'JOHN="/opt/john"'
+#     line: 'JOHN="/opt/john"'
