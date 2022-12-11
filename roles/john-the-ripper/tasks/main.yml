@@ -95,7 +95,10 @@
   copy: 
     remote_src: true
     src: /src/john/run
-    dest: /opt/john
+    dest: /opt
+
+- name: Rename run directory to john
+  command: mv /opt/run /opt/john
 
 - name: Clean up build directory
   become: true
