@@ -92,14 +92,14 @@
       chain: OUTPUT
       destination: 255.255.255.255
       jump: ACCEPT
-      action: "insert"
-  - name: Allow DHCP server (source)
+      action: "insert" 
+  - name: Allow localhost #trial
     become: true
     iptables:
-      chain: OUTPUT
-      source: 255.255.255.255
+      chain: INPUT
+      source: 127.0.0.1/32
       jump: ACCEPT
-      action: "insert"
+      action: "insert" 
   - name: Allow Local/LAN network
     become: true
     iptables:
